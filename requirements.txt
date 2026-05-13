@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────────────────────
+# Cocoa & Crumb — Python Developer Tooling
+# Virtualenv: asrdivine
+# Activate:   asrdivine\Scripts\activate  (Windows)
+#             source asrdivine/bin/activate  (Linux/Mac)
+# Install:    pip install -r requirements.txt
+# ─────────────────────────────────────────────────────────────
+
+# HTTP client — for API health checks and integration scripts
+httpx==0.27.0
+
+# Fake data generation — for database seeding scripts
+faker==24.11.0
+
+# .env file loader — reads .env.local for scripts
+python-dotenv==1.0.1
+
+# Testing framework
+pytest==8.1.1
+pytest-asyncio==0.23.6
+
+# Beautiful terminal output for CLI scripts
+rich==13.7.1
+
+# CLI argument parsing — for building seed/export scripts
+typer==0.12.3
+
+# CSV and data processing
+pandas==2.2.2
+
+# Supabase Python client — direct DB access from scripts
+supabase==2.4.6
+
+# HTTP requests (used by supabase client internally)
+requests==2.31.0
+
+# Date/time utilities
+python-dateutil==2.9.0.post0
