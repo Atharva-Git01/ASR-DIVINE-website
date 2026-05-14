@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const REVIEW = {
@@ -89,28 +90,29 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="relative lg:h-full lg:min-h-[calc(100vh-72px)]"
         >
-          {/* Hero image / gradient placeholder */}
+          {/* Hero image panel */}
           <div className="relative h-[480px] w-full overflow-hidden rounded-3xl bg-gradient-hero lg:h-full lg:rounded-none lg:rounded-l-[2.5rem]">
-            {/* Texture overlay */}
-            <div className="absolute inset-0 bg-brand-brown-deep/10" />
 
-            {/* Decorative grid lines */}
-            <div
-              className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage:
-                  'linear-gradient(rgba(245,239,224,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,239,224,0.3) 1px, transparent 1px)',
-                backgroundSize: '40px 40px',
-              }}
+            {/* ── Product image ── save your photo as public/hero.jpg ── */}
+            <Image
+              src="/hero.jpg"
+              alt="ASR Divine handcrafted sweets and chocolates"
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
 
-            {/* Center emblem */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            {/* Gradient overlay — darkens bottom so review card stays readable */}
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-brown-deep/70 via-brand-brown-deep/20 to-transparent" />
+
+            {/* Subtle brand watermark in centre */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="text-center">
-                <p className="font-display text-[2.75rem] italic text-brand-cream/15 leading-none select-none">
+                <p className="font-display text-[2.75rem] italic text-brand-cream/10 leading-none select-none">
                   ASR Divine
                 </p>
-                <p className="mt-2 text-xs uppercase tracking-[0.2em] text-brand-cream/30">
+                <p className="mt-2 text-xs uppercase tracking-[0.2em] text-brand-cream/20">
                   Est. 2025 · Pune
                 </p>
               </div>
