@@ -19,9 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             Admin Panel
           </h1>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-brand-gold/50 hidden sm:block">
-              {session.user.email}
-            </span>
+            <span className="text-xs text-brand-gold/50 hidden sm:block">{session.user.email}</span>
             <a
               href="/"
               target="_blank"
@@ -33,9 +31,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-6 lg:p-8">
-          {children}
-        </main>
+        <main className="flex-1 p-6 lg:p-8">{children}</main>
       </div>
     </div>
   )

@@ -14,6 +14,7 @@ matcher or direct API call bypasses it entirely.
 **Fix:** Add an auth check at the top of every admin route handler.
 
 Create `src/lib/auth/require-admin.ts`:
+
 ```ts
 import { getToken } from 'next-auth/jwt'
 import { NextRequest, NextResponse } from 'next/server'
@@ -27,12 +28,14 @@ export async function requireAdmin(req: NextRequest) {
 ```
 
 Then in every `src/app/api/admin/**/*.ts`:
+
 ```ts
 const guard = await requireAdmin(request)
 if (guard) return guard
 ```
 
 **Files to update:**
+
 - `src/app/api/admin/products/route.ts`
 - `src/app/api/admin/products/[id]/route.ts`
 - `src/app/api/admin/categories/route.ts`
@@ -56,6 +59,7 @@ exhaustion under load.
 **Fix:** Create a single lazily-initialised admin client.
 
 Create `src/lib/supabase/admin-singleton.ts`:
+
 ```ts
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
@@ -85,6 +89,7 @@ payment routes with `getAdminClient()`.
 **Fix:** Use a Postgres sequence — already available via the `uuid-ossp` extension.
 
 Add to migration (or a new migration `002_order_number_seq.sql`):
+
 ```sql
 create sequence if not exists order_number_seq start 1000 increment 1;
 
@@ -95,6 +100,7 @@ $$;
 ```
 
 In `src/app/api/payment/verify/route.ts`, replace the JS function with:
+
 ```ts
 const { data: seqData } = await supabase.rpc('generate_order_number')
 const orderNumber = seqData as string
@@ -114,6 +120,7 @@ remove direct `supabase.auth.signInWithPassword` calls. Use the Supabase **servi
 only for DB operations, not for auth.
 
 **What changes:**
+
 - In `src/lib/auth/options.ts` → `CredentialsProvider.authorize`: instead of calling
   `supabase.auth.signInWithPassword`, validate credentials against a `user_credentials`
   table (or keep Supabase Auth but never expose its session to the frontend — only use it
@@ -136,12 +143,13 @@ maintenance burden.
 
 **Decision to make (pick one):**
 
-| Option | Sanity (CMS) | Supabase (DB) |
-|--------|-------------|---------------|
-| A | Rich text, images, marketing copy | Prices, stock, variants, orders |
-| B | Not used — remove it | Everything |
+| Option | Sanity (CMS)                      | Supabase (DB)                   |
+| ------ | --------------------------------- | ------------------------------- |
+| A      | Rich text, images, marketing copy | Prices, stock, variants, orders |
+| B      | Not used — remove it              | Everything                      |
 
 If choosing **Option A** (recommended for a real bakery client):
+
 - Product descriptions, hero images, and page content live in Sanity.
 - Inventory, pricing, and orders live in Supabase.
 - Merge them at query time in `products.bySlug` using the product `slug` as a shared key.
@@ -159,21 +167,25 @@ Currently `src/test/setup.ts` exists but no tests are written. Add tests for all
 business-critical logic:
 
 **Cart store** — `src/test/cart.test.ts`:
+
 - `addItem` with duplicate product/variant increments qty
 - `updateQty(id, 0)` removes the item
 - `subtotal()` matches sum of `price * qty`
 - `persist` key is `cocoa-crumb-cart`
 
 **Payment verification** — `src/test/payment.test.ts`:
+
 - HMAC signature validation rejects tampered payloads
 - Invalid amount returns 400
 - Rate limiter returns 429 on excess requests (mock Upstash)
 
 **Order number** — `src/test/order-number.test.ts`:
+
 - Sequence-based numbers are unique across 1000 iterations
 - Format matches `CC-YYYYMMDD-NNNNN`
 
 **tRPC procedures** — `src/test/trpc.test.ts`:
+
 - `protectedProcedure` throws UNAUTHORIZED when `ctx.userId` is null
 - `adminProcedure` throws FORBIDDEN when `ctx.isAdmin` is false
 
@@ -189,6 +201,7 @@ Once unit tests are green, add integration tests using a Supabase local dev inst
 ### 4.1 Environment Variable Validation at Startup
 
 Add `src/lib/env.ts` using Zod to validate all required env vars at build time:
+
 ```ts
 import { z } from 'zod'
 
@@ -226,15 +239,15 @@ Supabase instance with realistic test data using `faker`.
 
 ## Phase 5 — Product Features (Backlog)
 
-| Feature | Notes |
-|---------|-------|
-| Stock management | Add `stock_qty` to `products`, decrement on order |
-| Email notifications | Extend `order-placed` to send customer confirmation (Resend/Nodemailer) |
+| Feature                   | Notes                                                                    |
+| ------------------------- | ------------------------------------------------------------------------ |
+| Stock management          | Add `stock_qty` to `products`, decrement on order                        |
+| Email notifications       | Extend `order-placed` to send customer confirmation (Resend/Nodemailer)  |
 | Coupon validation in tRPC | Currently coupons exist in DB but aren't applied server-side at checkout |
-| Analytics dashboard | Wire admin analytics page to real Supabase aggregates |
-| Webhook idempotency | Store processed Razorpay event IDs to prevent double-processing |
-| Pincode delivery check | Validate delivery availability before checkout |
-| Image optimisation | Replace raw Storage URLs with Next.js `<Image>` + Supabase CDN |
+| Analytics dashboard       | Wire admin analytics page to real Supabase aggregates                    |
+| Webhook idempotency       | Store processed Razorpay event IDs to prevent double-processing          |
+| Pincode delivery check    | Validate delivery availability before checkout                           |
+| Image optimisation        | Replace raw Storage URLs with Next.js `<Image>` + Supabase CDN           |
 
 ---
 
@@ -264,9 +277,9 @@ pip install -r requirements.txt
 
 ### Available scripts (add to `scripts/`)
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/seed.py` | Seed local Supabase with fake products, categories, orders |
-| `scripts/health_check.py` | Hit all tRPC endpoints and report status |
-| `scripts/export_orders.py` | Export orders from Supabase to CSV for reporting |
-| `scripts/validate_env.py` | Check all required env vars are present before deploy |
+| Script                     | Purpose                                                    |
+| -------------------------- | ---------------------------------------------------------- |
+| `scripts/seed.py`          | Seed local Supabase with fake products, categories, orders |
+| `scripts/health_check.py`  | Hit all tRPC endpoints and report status                   |
+| `scripts/export_orders.py` | Export orders from Supabase to CSV for reporting           |
+| `scripts/validate_env.py`  | Check all required env vars are present before deploy      |

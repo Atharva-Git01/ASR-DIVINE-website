@@ -3,7 +3,15 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-const STATUSES = ['pending', 'confirmed', 'in_preparation', 'ready', 'out_for_delivery', 'delivered', 'cancelled']
+const STATUSES = [
+  'pending',
+  'confirmed',
+  'in_preparation',
+  'ready',
+  'out_for_delivery',
+  'delivered',
+  'cancelled',
+]
 
 type Props = { orderId: string; currentStatus: string }
 
@@ -23,7 +31,10 @@ export function OrderStatusUpdater({ orderId, currentStatus }: Props) {
       body: JSON.stringify({ status }),
     })
     setSaving(false)
-    if (!res.ok) { setError('Failed to update status'); return }
+    if (!res.ok) {
+      setError('Failed to update status')
+      return
+    }
     router.refresh()
   }
 
@@ -45,7 +56,11 @@ export function OrderStatusUpdater({ orderId, currentStatus }: Props) {
         onClick={handleSave}
         disabled={saving || status === currentStatus}
         className="px-4 py-2 rounded-xl text-sm font-medium transition-all disabled:opacity-40"
-        style={{ background: 'rgba(200,151,58,0.15)', color: '#C8973A', border: '1px solid rgba(200,151,58,0.25)' }}
+        style={{
+          background: 'rgba(200,151,58,0.15)',
+          color: '#C8973A',
+          border: '1px solid rgba(200,151,58,0.25)',
+        }}
       >
         {saving ? 'Saving…' : 'Update'}
       </button>

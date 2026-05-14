@@ -138,10 +138,7 @@ export async function getRelatedProducts(
  * All active category slugs — for generateStaticParams.
  */
 export async function getAllProductSlugs(): Promise<string[]> {
-  const { data } = await adminDb()
-    .from('products')
-    .select('slug')
-    .eq('is_active', true)
+  const { data } = await adminDb().from('products').select('slug').eq('is_active', true)
 
   return (data ?? []).map((r: { slug: string }) => r.slug)
 }

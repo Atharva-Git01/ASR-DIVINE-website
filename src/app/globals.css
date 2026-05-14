@@ -101,7 +101,7 @@
     letter-spacing: 0.04em;
     transition: all 200ms;
     cursor: pointer;
-    border: 1px solid rgba(44, 26, 14, 0.20);
+    border: 1px solid rgba(44, 26, 14, 0.2);
     color: var(--color-brown-mid);
     background-color: transparent;
     padding: 0.875rem 1.75rem;
@@ -128,13 +128,13 @@
     transition: all 200ms;
     cursor: pointer;
     color: var(--color-gold);
-    background-color: rgba(200, 151, 58, 0.10);
-    border: 1px solid rgba(200, 151, 58, 0.30);
+    background-color: rgba(200, 151, 58, 0.1);
+    border: 1px solid rgba(200, 151, 58, 0.3);
     padding: 0.875rem 1.75rem;
   }
 
   .btn-ghost:hover {
-    background-color: rgba(200, 151, 58, 0.20);
+    background-color: rgba(200, 151, 58, 0.2);
   }
 
   .btn-ghost:disabled {
@@ -197,8 +197,8 @@
     text-transform: uppercase;
     padding: 0.125rem 0.5rem;
     color: var(--color-sage);
-    background-color: rgba(122, 140, 110, 0.20);
-    border: 1px solid rgba(122, 140, 110, 0.30);
+    background-color: rgba(122, 140, 110, 0.2);
+    border: 1px solid rgba(122, 140, 110, 0.3);
   }
 
   .badge-blush {
@@ -211,8 +211,8 @@
     text-transform: uppercase;
     padding: 0.125rem 0.5rem;
     color: var(--color-blush);
-    background-color: rgba(232, 205, 181, 0.20);
-    border: 1px solid rgba(232, 205, 181, 0.20);
+    background-color: rgba(232, 205, 181, 0.2);
+    border: 1px solid rgba(232, 205, 181, 0.2);
   }
 
   /* ── Cards ────────────────────────────────────────────────────────────── */
@@ -255,7 +255,7 @@
   }
 
   .input::placeholder {
-    color: rgba(107, 76, 53, 0.50);
+    color: rgba(107, 76, 53, 0.5);
   }
 
   .input:focus {

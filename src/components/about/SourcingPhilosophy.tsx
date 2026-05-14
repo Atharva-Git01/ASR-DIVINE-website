@@ -12,7 +12,7 @@ const PILLARS = [
   {
     icon: '🥚',
     title: 'Eggless Options',
-    body: 'Most of our products are available eggless without substitutes — because great chocolate doesn\'t need eggs.',
+    body: "Most of our products are available eggless without substitutes — because great chocolate doesn't need eggs.",
   },
   {
     icon: '📦',
@@ -38,16 +38,11 @@ export function SourcingPhilosophy() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map(({ icon, title, body }) => (
-            <div
-              key={title}
-              className="card p-7 flex flex-col gap-4"
-            >
+            <div key={title} className="card p-7 flex flex-col gap-4">
               <span className="text-3xl" role="img" aria-label={title}>
                 {icon}
               </span>
-              <h3 className="font-body font-semibold text-brand-brown-deep text-base">
-                {title}
-              </h3>
+              <h3 className="font-body font-semibold text-brand-brown-deep text-base">{title}</h3>
               <p className="text-sm text-brand-text-secondary leading-relaxed">{body}</p>
             </div>
           ))}

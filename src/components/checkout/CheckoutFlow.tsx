@@ -36,7 +36,11 @@ export function CheckoutFlow({ session }: Props) {
   const [address, setAddress] = useState<CheckoutAddress>({
     fullName: session?.user.name ?? '',
     phone: '',
-    line1: '', line2: '', city: 'Pune', state: 'Maharashtra', pincode: '',
+    line1: '',
+    line2: '',
+    city: 'Pune',
+    state: 'Maharashtra',
+    pincode: '',
   })
   const [coupon, setCoupon] = useState<AppliedCoupon | null>(null)
   const [orderId, setOrderId] = useState<string | null>(null)
@@ -45,7 +49,9 @@ export function CheckoutFlow({ session }: Props) {
     return (
       <div className="text-center py-16">
         <p className="text-sm text-brand-text-secondary mb-4">Your cart is empty.</p>
-        <a href="/shop" className="btn-primary inline-flex">Browse the shop</a>
+        <a href="/shop" className="btn-primary inline-flex">
+          Browse the shop
+        </a>
       </div>
     )
   }
@@ -72,8 +78,8 @@ export function CheckoutFlow({ session }: Props) {
                     background: done
                       ? 'var(--color-brown-deep)'
                       : active
-                      ? 'var(--color-gold)'
-                      : 'rgba(44,26,14,0.08)',
+                        ? 'var(--color-gold)'
+                        : 'rgba(44,26,14,0.08)',
                     color: done || active ? 'white' : 'rgba(44,26,14,0.4)',
                   }}
                 >
@@ -91,8 +97,7 @@ export function CheckoutFlow({ session }: Props) {
                 <div
                   className="flex-1 h-px mx-3 mt-[-10px]"
                   style={{
-                    background:
-                      step > i ? 'var(--color-brown-deep)' : 'rgba(44,26,14,0.10)',
+                    background: step > i ? 'var(--color-brown-deep)' : 'rgba(44,26,14,0.10)',
                   }}
                 />
               )}

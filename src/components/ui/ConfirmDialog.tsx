@@ -56,14 +56,11 @@ export function ConfirmDialog({
       aria-labelledby="confirm-dialog-title"
     >
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50"
-        onClick={onCancel}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-black/50" onClick={onCancel} aria-hidden="true" />
 
       {/* Panel */}
-      <div className="relative w-full max-w-sm rounded-2xl p-6 shadow-2xl"
+      <div
+        className="relative w-full max-w-sm rounded-2xl p-6 shadow-2xl"
         style={{ background: '#1a0f07', border: '1px solid rgba(200,151,58,0.15)' }}
       >
         <h2
@@ -88,9 +85,7 @@ export function ConfirmDialog({
           <button
             onClick={onConfirm}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-              destructive
-                ? 'bg-red-700 hover:bg-red-600 text-white'
-                : 'text-brand-choc'
+              destructive ? 'bg-red-700 hover:bg-red-600 text-white' : 'text-brand-choc'
             }`}
             style={!destructive ? { background: 'var(--color-gold)' } : undefined}
           >

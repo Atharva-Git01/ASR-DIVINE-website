@@ -8,7 +8,21 @@ export async function POST(request: NextRequest) {
   if (guard) return guard
 
   const body = await request.json()
-  const { name, slug, description, base_price, category_id, is_active, is_eggless, is_seasonal, is_bestseller, stock_count, tags, serving_size, shelf_life } = body
+  const {
+    name,
+    slug,
+    description,
+    base_price,
+    category_id,
+    is_active,
+    is_eggless,
+    is_seasonal,
+    is_bestseller,
+    stock_count,
+    tags,
+    serving_size,
+    shelf_life,
+  } = body
 
   if (!name || !slug || base_price == null) {
     return NextResponse.json({ error: 'name, slug and base_price are required' }, { status: 400 })

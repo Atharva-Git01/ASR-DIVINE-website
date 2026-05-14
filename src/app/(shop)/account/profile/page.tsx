@@ -30,7 +30,9 @@ export default function ProfilePage() {
 
       <form onSubmit={handleSave} className="space-y-5">
         <div>
-          <label htmlFor="name" className="block text-xs text-brand-text-secondary mb-1.5">Full name</label>
+          <label htmlFor="name" className="block text-xs text-brand-text-secondary mb-1.5">
+            Full name
+          </label>
           <input
             id="name"
             type="text"
@@ -42,7 +44,9 @@ export default function ProfilePage() {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-xs text-brand-text-secondary mb-1.5">Email</label>
+          <label htmlFor="email" className="block text-xs text-brand-text-secondary mb-1.5">
+            Email
+          </label>
           <input
             id="email"
             type="email"
@@ -54,7 +58,9 @@ export default function ProfilePage() {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-xs text-brand-text-secondary mb-1.5">Phone (optional)</label>
+          <label htmlFor="phone" className="block text-xs text-brand-text-secondary mb-1.5">
+            Phone (optional)
+          </label>
           <input
             id="phone"
             type="tel"

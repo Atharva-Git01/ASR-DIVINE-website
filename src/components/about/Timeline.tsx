@@ -82,9 +82,7 @@ export function Timeline() {
 
                   {/* Center dot */}
                   <div className="hidden lg:flex lg:order-2 lg:w-16 lg:justify-center lg:flex-shrink-0">
-                    <div
-                      className="h-3 w-3 rounded-full bg-brand-gold ring-4 ring-brand-cream"
-                    />
+                    <div className="h-3 w-3 rounded-full bg-brand-gold ring-4 ring-brand-cream" />
                   </div>
 
                   {/* Right content (odd indices on desktop) */}
@@ -107,7 +105,10 @@ export function Timeline() {
                   </div>
 
                   {/* Mobile: always show content */}
-                  <div className="lg:hidden border-l-2 pl-4" style={{ borderColor: 'rgba(200,151,58,0.4)' }}>
+                  <div
+                    className="lg:hidden border-l-2 pl-4"
+                    style={{ borderColor: 'rgba(200,151,58,0.4)' }}
+                  >
                     <p className="text-xs font-semibold text-brand-gold tracking-widest uppercase">
                       {year}
                     </p>

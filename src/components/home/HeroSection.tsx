@@ -43,8 +43,8 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.18 }}
             className="mt-6 max-w-md text-base text-brand-text-secondary leading-relaxed"
           >
-            Small-batch bean-to-bar chocolates, celebration cakes, and gifting hampers —
-            each piece made by hand in our Pune studio.
+            Small-batch bean-to-bar chocolates, celebration cakes, and gifting hampers — each piece
+            made by hand in our Pune studio.
           </motion.p>
 
           <motion.div
@@ -69,7 +69,10 @@ export function HeroSection() {
             className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2"
           >
             {['100% Handcrafted', 'Eggless Options', 'Same-day Delivery'].map((badge) => (
-              <span key={badge} className="flex items-center gap-1.5 text-xs text-brand-text-secondary">
+              <span
+                key={badge}
+                className="flex items-center gap-1.5 text-xs text-brand-text-secondary"
+              >
                 <span className="h-1 w-1 rounded-full bg-brand-gold" />
                 {badge}
               </span>
@@ -90,10 +93,14 @@ export function HeroSection() {
             <div className="absolute inset-0 bg-brand-brown-deep/10" />
 
             {/* Decorative grid lines */}
-            <div className="absolute inset-0 opacity-10" style={{
-              backgroundImage: 'linear-gradient(rgba(245,239,224,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,239,224,0.3) 1px, transparent 1px)',
-              backgroundSize: '40px 40px'
-            }} />
+            <div
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(245,239,224,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,239,224,0.3) 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+              }}
+            />
 
             {/* Center emblem */}
             <div className="absolute inset-0 flex items-center justify-center">

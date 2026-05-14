@@ -32,7 +32,9 @@ export async function POST(request: Request) {
   const html = `
     <h2>New Custom Order Request</h2>
     <table cellpadding="6" style="border-collapse:collapse">
-      ${Object.entries(fields).map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${v || '—'}</td></tr>`).join('')}
+      ${Object.entries(fields)
+        .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${v || '—'}</td></tr>`)
+        .join('')}
     </table>
     <p>Check the admin panel for uploaded reference images.</p>
   `

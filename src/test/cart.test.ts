@@ -2,7 +2,9 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { useCartStore } from '@/stores/cart'
 
 // Helper to build a minimal cart item input
-function makeItem(overrides: Partial<Parameters<ReturnType<typeof useCartStore.getState>['addItem']>[0]> = {}) {
+function makeItem(
+  overrides: Partial<Parameters<ReturnType<typeof useCartStore.getState>['addItem']>[0]> = {}
+) {
   return {
     id: overrides.id ?? 'item-1',
     productId: overrides.productId ?? 'prod-abc',
@@ -40,7 +42,9 @@ describe('CartStore', () => {
 
   it('treats the same product with different variants as separate line items', () => {
     useCartStore.getState().addItem(makeItem({ productId: 'prod-xyz', variantId: 'var-small' }))
-    useCartStore.getState().addItem(makeItem({ productId: 'prod-xyz', variantId: 'var-large', id: 'item-2' }))
+    useCartStore
+      .getState()
+      .addItem(makeItem({ productId: 'prod-xyz', variantId: 'var-large', id: 'item-2' }))
     expect(useCartStore.getState().items).toHaveLength(2)
   })
 

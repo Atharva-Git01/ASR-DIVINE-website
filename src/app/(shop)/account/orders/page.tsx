@@ -4,14 +4,14 @@ import { getSession } from '@/lib/auth/session'
 import { adminDb } from '@/lib/supabase/admin'
 
 const STATUS_LABEL: Record<string, { label: string; color: string }> = {
-  pending:          { label: 'Pending',          color: '#C8973A' },
-  confirmed:        { label: 'Confirmed',         color: '#7A8C6E' },
-  in_preparation:   { label: 'In Preparation',    color: '#7A8C6E' },
-  ready:            { label: 'Ready',             color: '#7A8C6E' },
-  out_for_delivery: { label: 'Out for Delivery',  color: '#5C3D1E' },
-  delivered:        { label: 'Delivered',         color: '#7A8C6E' },
-  cancelled:        { label: 'Cancelled',         color: '#dc2626' },
-  refunded:         { label: 'Refunded',          color: '#9ca3af' },
+  pending: { label: 'Pending', color: '#C8973A' },
+  confirmed: { label: 'Confirmed', color: '#7A8C6E' },
+  in_preparation: { label: 'In Preparation', color: '#7A8C6E' },
+  ready: { label: 'Ready', color: '#7A8C6E' },
+  out_for_delivery: { label: 'Out for Delivery', color: '#5C3D1E' },
+  delivered: { label: 'Delivered', color: '#7A8C6E' },
+  cancelled: { label: 'Cancelled', color: '#dc2626' },
+  refunded: { label: 'Refunded', color: '#9ca3af' },
 }
 
 type OrderItem = {
@@ -57,7 +57,9 @@ export default async function OrdersPage() {
           <p className="text-sm text-brand-text-secondary mb-4">
             You haven&apos;t placed any orders yet.
           </p>
-          <Link href="/shop" className="btn-primary">Browse the shop</Link>
+          <Link href="/shop" className="btn-primary">
+            Browse the shop
+          </Link>
         </div>
       ) : (
         <div className="space-y-4">
@@ -93,9 +95,7 @@ export default async function OrdersPage() {
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <p className="text-brand-text-secondary truncate">
-                    {itemSummary || 'No items'}
-                  </p>
+                  <p className="text-brand-text-secondary truncate">{itemSummary || 'No items'}</p>
                   <p className="font-semibold text-brand-brown-deep ml-4 flex-shrink-0">
                     ₹{Number(order.total).toLocaleString('en-IN')}
                   </p>

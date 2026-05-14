@@ -28,7 +28,7 @@ export function AddressStep({ address, onChange, onBack, onNext }: Props) {
       enabled: /^\d{6}$/.test(address.pincode),
       retry: false,
       staleTime: 5 * 60 * 1000, // 5 min
-    },
+    }
   )
 
   // Sync query result → local status
@@ -160,8 +160,8 @@ export function AddressStep({ address, onChange, onBack, onNext }: Props) {
                 pincodeStatus.state === 'error'
                   ? 'border-red-400 focus:border-red-500'
                   : pincodeStatus.state === 'ok'
-                  ? 'border-green-500 focus:border-green-600'
-                  : ''
+                    ? 'border-green-500 focus:border-green-600'
+                    : ''
               }`}
               placeholder="411001"
             />
@@ -181,7 +181,8 @@ export function AddressStep({ address, onChange, onBack, onNext }: Props) {
             {pincodeStatus.message}
             {pincodeStatus.extraCharge > 0 && (
               <span className="text-brand-text-secondary">
-                {' '}(+₹{pincodeStatus.extraCharge} surcharge)
+                {' '}
+                (+₹{pincodeStatus.extraCharge} surcharge)
               </span>
             )}
           </p>
@@ -202,7 +203,9 @@ export function AddressStep({ address, onChange, onBack, onNext }: Props) {
         )}
 
         <div className="flex gap-3 pt-2">
-          <button type="button" onClick={onBack} className="btn-ghost">← Back</button>
+          <button type="button" onClick={onBack} className="btn-ghost">
+            ← Back
+          </button>
           <button
             type="submit"
             disabled={pincodeStatus.state === 'error' || pincodeStatus.state === 'checking'}
@@ -218,7 +221,18 @@ export function AddressStep({ address, onChange, onBack, onNext }: Props) {
 
 function CheckIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="flex-shrink-0"
+      aria-hidden="true"
+    >
       <polyline points="20 6 9 17 4 12" />
     </svg>
   )
@@ -226,7 +240,18 @@ function CheckIcon() {
 
 function XIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="flex-shrink-0"
+      aria-hidden="true"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>

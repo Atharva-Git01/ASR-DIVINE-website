@@ -21,7 +21,9 @@ export async function middleware(request: NextRequest) {
   const isAdmin = ADMIN_PATHS.some((p) => pathname.startsWith(p))
 
   if (isProtected || isAdmin) {
-    const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET }).catch(() => null)
+    const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET }).catch(
+      () => null
+    )
 
     if (!token) {
       const signInUrl = new URL('/auth/signin', request.url)

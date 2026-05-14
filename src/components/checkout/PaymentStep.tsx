@@ -74,19 +74,39 @@ export function PaymentStep({
         })
       }
 
-      // Create Razorpay order on server
+      const paymentItems = items.map((item) => ({
+        productId: item.productId,
+        variantId: item.variantId,
+        name: item.name,
+        variantLabel: item.variantLabel,
+        qty: item.qty,
+        giftWrapped: item.giftWrapped,
+        giftMessage: item.giftMessage,
+      }))
+
+      // Create Razorpay order on server using authoritative pricing
       const res = await fetch('/api/payment/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: total, currency: 'INR' }),
+        body: JSON.stringify({
+          items: paymentItems,
+          couponCode: coupon?.code ?? null,
+          currency: 'INR',
+          clientTotal: total,
+        }),
       })
-      const { orderId: razorpayOrderId, error: serverError } = await res.json()
+      const {
+        orderId: razorpayOrderId,
+        amount: serverAmount,
+        currency,
+        error: serverError,
+      } = await res.json()
       if (serverError) throw new Error(serverError)
 
       const rzp = new window.Razorpay({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-        amount: total * 100,
-        currency: 'INR',
+        amount: Math.round(serverAmount * 100),
+        currency,
         name: 'Cocoa & Crumb',
         description: `Order for ${items.length} item${items.length > 1 ? 's' : ''}`,
         order_id: razorpayOrderId,
@@ -99,16 +119,6 @@ export function PaymentStep({
         handler: async (response) => {
           // Verify + create order in DB
           // Note: only send productId/qty/display fields — verify route fetches prices server-side
-          const verifyItems = items.map((item) => ({
-            productId: item.productId,
-            variantId: item.variantId,
-            name: item.name,
-            variantLabel: item.variantLabel,
-            qty: item.qty,
-            giftWrapped: item.giftWrapped,
-            giftMessage: item.giftMessage,
-          }))
-
           const verifyRes = await fetch('/api/payment/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -116,10 +126,8 @@ export function PaymentStep({
               razorpayOrderId: response.razorpay_order_id,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpaySignature: response.razorpay_signature,
-              items: verifyItems,
+              items: paymentItems,
               address,
-              deliveryCharge,
-              giftWrapCharges,
               couponCode: coupon?.code ?? null,
             }),
           })
@@ -203,9 +211,7 @@ export function PaymentStep({
 
       {/* Right — totals */}
       <div className="card p-5 space-y-2 lg:sticky lg:top-24">
-        <h3 className="font-body font-semibold text-brand-brown-deep text-sm mb-3">
-          Order total
-        </h3>
+        <h3 className="font-body font-semibold text-brand-brown-deep text-sm mb-3">Order total</h3>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-brand-text-secondary">Subtotal</span>

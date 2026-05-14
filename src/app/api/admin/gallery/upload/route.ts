@@ -12,7 +12,8 @@ export async function POST(request: NextRequest) {
   const formData = await request.formData()
   const file = formData.get('file') as File | null
   if (!file) return NextResponse.json({ error: 'No file provided' }, { status: 400 })
-  if (file.size > MAX_SIZE) return NextResponse.json({ error: 'File exceeds 5 MB' }, { status: 400 })
+  if (file.size > MAX_SIZE)
+    return NextResponse.json({ error: 'File exceeds 5 MB' }, { status: 400 })
 
   const ext = file.name.split('.').pop() ?? 'jpg'
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
@@ -25,7 +26,9 @@ export async function POST(request: NextRequest) {
 
   if (storageError) return NextResponse.json({ error: storageError.message }, { status: 500 })
 
-  const { data: { publicUrl } } = db.storage.from('gallery').getPublicUrl(filename)
+  const {
+    data: { publicUrl },
+  } = db.storage.from('gallery').getPublicUrl(filename)
 
   const { data: row, error: dbError } = await db
     .from('gallery_images')

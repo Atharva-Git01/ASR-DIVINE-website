@@ -8,11 +8,18 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   if (guard) return guard
 
   const { name, slug, description, is_active } = await request.json()
-  if (!name || !slug) return NextResponse.json({ error: 'name and slug are required' }, { status: 400 })
+  if (!name || !slug)
+    return NextResponse.json({ error: 'name and slug are required' }, { status: 400 })
 
   const { error } = await adminDb()
     .from('categories')
-    .update({ name, slug, description: description || null, is_active, updated_at: new Date().toISOString() })
+    .update({
+      name,
+      slug,
+      description: description || null,
+      is_active,
+      updated_at: new Date().toISOString(),
+    })
     .eq('id', params.id)
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })

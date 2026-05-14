@@ -3,7 +3,15 @@ import type { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { adminDb } from '@/lib/supabase/admin'
 
-const VALID_STATUSES = ['pending', 'confirmed', 'in_preparation', 'ready', 'out_for_delivery', 'delivered', 'cancelled']
+const VALID_STATUSES = [
+  'pending',
+  'confirmed',
+  'in_preparation',
+  'ready',
+  'out_for_delivery',
+  'delivered',
+  'cancelled',
+]
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   const guard = await requireAdmin(request)

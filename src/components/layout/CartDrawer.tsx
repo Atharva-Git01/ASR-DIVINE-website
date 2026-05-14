@@ -16,7 +16,9 @@ export function CartDrawer() {
   // Close on Escape key
   useEffect(() => {
     if (!isOpen) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeCart() }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeCart()
+    }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [isOpen, closeCart])
@@ -24,7 +26,9 @@ export function CartDrawer() {
   // Lock body scroll when open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [isOpen])
 
   if (!isOpen) return null
@@ -51,11 +55,7 @@ export function CartDrawer() {
           <h2 className="font-display text-lg italic text-brand-brown-deep tracking-[0.04em]">
             Your Cart
           </h2>
-          <button
-            onClick={closeCart}
-            aria-label="Close cart"
-            className="btn-icon"
-          >
+          <button onClick={closeCart} aria-label="Close cart" className="btn-icon">
             <CloseIcon />
           </button>
         </div>
@@ -73,10 +73,7 @@ export function CartDrawer() {
                   Add some delicious items to get started.
                 </p>
               </div>
-              <button
-                onClick={closeCart}
-                className="btn btn-secondary text-xs"
-              >
+              <button onClick={closeCart} className="btn btn-secondary text-xs">
                 Continue shopping
               </button>
             </div>
@@ -188,7 +185,16 @@ export function CartDrawer() {
 
 function CloseIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
@@ -197,7 +203,17 @@ function CloseIcon() {
 
 function TrashIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <polyline points="3 6 5 6 21 6" />
       <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
       <path d="M10 11v6M14 11v6" />
@@ -208,7 +224,18 @@ function TrashIcon() {
 
 function BagIcon() {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-blush" aria-hidden="true">
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-brand-blush"
+      aria-hidden="true"
+    >
       <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
       <line x1="3" y1="6" x2="21" y2="6" />
       <path d="M16 10a4 4 0 0 1-8 0" />

@@ -6,7 +6,9 @@ import { ProductForm } from '@/components/admin/ProductForm'
 async function getProduct(id: string) {
   const { data } = await adminDb()
     .from('products')
-    .select('id, name, slug, description, base_price, category_id, is_active, is_eggless, is_seasonal, is_bestseller, stock_count, tags, serving_size, shelf_life, product_images(id, storage_path, alt_text, sort_order)')
+    .select(
+      'id, name, slug, description, base_price, category_id, is_active, is_eggless, is_seasonal, is_bestseller, stock_count, tags, serving_size, shelf_life, product_images(id, storage_path, alt_text, sort_order)'
+    )
     .eq('id', id)
     .single()
   return data
@@ -37,7 +39,16 @@ export default async function EditProductPage({ params }: { params: { id: string
 
   const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
   const initialImages = (
-    (product as unknown as { product_images?: Array<{ id: string; storage_path: string; alt_text: string | null; sort_order: number }> }).product_images ?? []
+    (
+      product as unknown as {
+        product_images?: Array<{
+          id: string
+          storage_path: string
+          alt_text: string | null
+          sort_order: number
+        }>
+      }
+    ).product_images ?? []
   ).map((img) => ({
     id: img.id,
     url: `${baseUrl}/storage/v1/object/public/product-images/${img.storage_path}`,
@@ -48,10 +59,20 @@ export default async function EditProductPage({ params }: { params: { id: string
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/products" className="text-xs text-brand-gold/50 hover:text-brand-gold transition-colors">← Products</Link>
+        <Link
+          href="/admin/products"
+          className="text-xs text-brand-gold/50 hover:text-brand-gold transition-colors"
+        >
+          ← Products
+        </Link>
         <h1 className="text-xl font-semibold text-brand-cream">{product.name}</h1>
       </div>
-      <ProductForm categories={categories} initial={initial} initialImages={initialImages} isNew={false} />
+      <ProductForm
+        categories={categories}
+        initial={initial}
+        initialImages={initialImages}
+        isNew={false}
+      />
     </div>
   )
 }

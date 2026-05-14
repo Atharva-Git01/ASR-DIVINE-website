@@ -13,7 +13,12 @@ export default async function NewProductPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/products" className="text-xs text-brand-gold/50 hover:text-brand-gold transition-colors">← Products</Link>
+        <Link
+          href="/admin/products"
+          className="text-xs text-brand-gold/50 hover:text-brand-gold transition-colors"
+        >
+          ← Products
+        </Link>
         <h1 className="text-xl font-semibold text-brand-cream">New Product</h1>
       </div>
       <ProductForm categories={categories} isNew={true} />

@@ -40,13 +40,26 @@ type Props = {
 }
 
 const EMPTY: ProductData = {
-  name: '', slug: '', description: '', base_price: 0, category_id: '',
-  is_active: true, is_eggless: false, is_seasonal: false, is_bestseller: false,
-  stock_count: '', tags: '', serving_size: '', shelf_life: '',
+  name: '',
+  slug: '',
+  description: '',
+  base_price: 0,
+  category_id: '',
+  is_active: true,
+  is_eggless: false,
+  is_seasonal: false,
+  is_bestseller: false,
+  stock_count: '',
+  tags: '',
+  serving_size: '',
+  shelf_life: '',
 }
 
 function toSlug(name: string) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
 }
 
 export function ProductForm({ categories, initial, initialImages = [], isNew }: Props) {
@@ -77,7 +90,12 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
       ...form,
       base_price: Number(form.base_price),
       stock_count: form.stock_count === '' ? null : Number(form.stock_count),
-      tags: form.tags ? form.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
+      tags: form.tags
+        ? form.tags
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean)
+        : [],
     }
 
     const url = isNew ? '/api/admin/products' : `/api/admin/products/${form.id}`
@@ -142,24 +160,21 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
     }
 
     const { id, url, sortOrder } = await res.json()
-    setImages((prev) => [
-      ...prev,
-      { id, url, altText: form.name, sortOrder },
-    ])
+    setImages((prev) => [...prev, { id, url, altText: form.name, sortOrder }])
   }
 
   async function handleDeleteImage(imageId: string) {
     if (!form.id) return
-    const res = await fetch(
-      `/api/admin/products/${form.id}/images?imageId=${imageId}`,
-      { method: 'DELETE' }
-    )
+    const res = await fetch(`/api/admin/products/${form.id}/images?imageId=${imageId}`, {
+      method: 'DELETE',
+    })
     if (res.ok) {
       setImages((prev) => prev.filter((img) => img.id !== imageId))
     }
   }
 
-  const inputClass = 'w-full rounded-xl px-3 py-2.5 text-sm text-brand-cream placeholder-brand-gold/30 border outline-none focus:border-brand-gold transition-colors'
+  const inputClass =
+    'w-full rounded-xl px-3 py-2.5 text-sm text-brand-cream placeholder-brand-gold/30 border outline-none focus:border-brand-gold transition-colors'
   const inputStyle = { background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(200,151,58,0.20)' }
   const labelClass = 'block text-xs text-brand-gold/50 mb-1.5'
 
@@ -176,7 +191,11 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
           <div className="sm:col-span-2">
             <label className={labelClass}>Product name *</label>
             <input
-              type="text" value={form.name} required className={inputClass} style={inputStyle}
+              type="text"
+              value={form.name}
+              required
+              className={inputClass}
+              style={inputStyle}
               placeholder="Dark Chocolate Truffle Box"
               onChange={(e) => {
                 set('name', e.target.value)
@@ -186,71 +205,128 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
           </div>
           <div>
             <label className={labelClass}>Slug *</label>
-            <input type="text" value={form.slug} required className={inputClass} style={inputStyle}
-              onChange={(e) => set('slug', e.target.value)} placeholder="dark-chocolate-truffle-box" />
+            <input
+              type="text"
+              value={form.slug}
+              required
+              className={inputClass}
+              style={inputStyle}
+              onChange={(e) => set('slug', e.target.value)}
+              placeholder="dark-chocolate-truffle-box"
+            />
           </div>
           <div>
             <label className={labelClass}>Category</label>
-            <select value={form.category_id} onChange={(e) => set('category_id', e.target.value)}
-              className={inputClass} style={{ ...inputStyle, cursor: 'pointer' }}>
-              <option value="" style={{ background: '#1a0f07' }}>— Select —</option>
+            <select
+              value={form.category_id}
+              onChange={(e) => set('category_id', e.target.value)}
+              className={inputClass}
+              style={{ ...inputStyle, cursor: 'pointer' }}
+            >
+              <option value="" style={{ background: '#1a0f07' }}>
+                — Select —
+              </option>
               {categories.map((c) => (
-                <option key={c.id} value={c.id} style={{ background: '#1a0f07' }}>{c.name}</option>
+                <option key={c.id} value={c.id} style={{ background: '#1a0f07' }}>
+                  {c.name}
+                </option>
               ))}
             </select>
           </div>
           <div>
             <label className={labelClass}>Base price (₹) *</label>
-            <input type="number" value={form.base_price} min={0} required className={inputClass} style={inputStyle}
-              onChange={(e) => set('base_price', Number(e.target.value))} placeholder="599" />
+            <input
+              type="number"
+              value={form.base_price}
+              min={0}
+              required
+              className={inputClass}
+              style={inputStyle}
+              onChange={(e) => set('base_price', Number(e.target.value))}
+              placeholder="599"
+            />
           </div>
           <div>
             <label className={labelClass}>Stock count (blank = unlimited)</label>
-            <input type="number" value={form.stock_count} min={0} className={inputClass} style={inputStyle}
-              onChange={(e) => set('stock_count', e.target.value)} placeholder="∞" />
+            <input
+              type="number"
+              value={form.stock_count}
+              min={0}
+              className={inputClass}
+              style={inputStyle}
+              onChange={(e) => set('stock_count', e.target.value)}
+              placeholder="∞"
+            />
           </div>
         </div>
 
         <div>
           <label className={labelClass}>Short description</label>
-          <textarea value={form.description} rows={3} className={inputClass + ' resize-none'} style={inputStyle}
+          <textarea
+            value={form.description}
+            rows={3}
+            className={inputClass + ' resize-none'}
+            style={inputStyle}
             onChange={(e) => set('description', e.target.value)}
-            placeholder="A decadent box of single-origin dark chocolate truffles…" />
+            placeholder="A decadent box of single-origin dark chocolate truffles…"
+          />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelClass}>Serving size</label>
-            <input type="text" value={form.serving_size} className={inputClass} style={inputStyle}
-              onChange={(e) => set('serving_size', e.target.value)} placeholder="Box of 12 pieces" />
+            <input
+              type="text"
+              value={form.serving_size}
+              className={inputClass}
+              style={inputStyle}
+              onChange={(e) => set('serving_size', e.target.value)}
+              placeholder="Box of 12 pieces"
+            />
           </div>
           <div>
             <label className={labelClass}>Shelf life</label>
-            <input type="text" value={form.shelf_life} className={inputClass} style={inputStyle}
-              onChange={(e) => set('shelf_life', e.target.value)} placeholder="7 days refrigerated" />
+            <input
+              type="text"
+              value={form.shelf_life}
+              className={inputClass}
+              style={inputStyle}
+              onChange={(e) => set('shelf_life', e.target.value)}
+              placeholder="7 days refrigerated"
+            />
           </div>
         </div>
 
         <div>
           <label className={labelClass}>Tags (comma-separated)</label>
-          <input type="text" value={form.tags} className={inputClass} style={inputStyle}
-            onChange={(e) => set('tags', e.target.value)} placeholder="bestseller, gifting, dark chocolate" />
+          <input
+            type="text"
+            value={form.tags}
+            className={inputClass}
+            style={inputStyle}
+            onChange={(e) => set('tags', e.target.value)}
+            placeholder="bestseller, gifting, dark chocolate"
+          />
         </div>
 
         {/* Toggles */}
         <div className="grid gap-3 sm:grid-cols-2">
-          {([
-            ['is_active', 'Active (visible on site)'],
-            ['is_eggless', 'Eggless'],
-            ['is_seasonal', 'Seasonal'],
-            ['is_bestseller', 'Mark as bestseller'],
-          ] as [keyof ProductData, string][]).map(([field, label]) => (
+          {(
+            [
+              ['is_active', 'Active (visible on site)'],
+              ['is_eggless', 'Eggless'],
+              ['is_seasonal', 'Seasonal'],
+              ['is_bestseller', 'Mark as bestseller'],
+            ] as [keyof ProductData, string][]
+          ).map(([field, label]) => (
             <label key={field} className="flex items-center gap-3 cursor-pointer group">
               <div
                 onClick={() => set(field, !form[field] as ProductData[typeof field])}
                 className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${form[field] ? 'bg-brand-gold' : 'bg-white/10'}`}
               >
-                <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${form[field] ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                <div
+                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${form[field] ? 'translate-x-5' : 'translate-x-0.5'}`}
+                />
               </div>
               <span className="text-sm text-brand-cream/70">{label}</span>
             </label>
@@ -258,19 +334,28 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
         </div>
 
         <div className="flex gap-3 pt-2">
-          <button type="submit" disabled={saving}
+          <button
+            type="submit"
+            disabled={saving}
             className="px-6 py-2.5 rounded-xl text-sm font-medium text-brand-choc transition-all disabled:opacity-50"
-            style={{ background: 'var(--color-gold)' }}>
+            style={{ background: 'var(--color-gold)' }}
+          >
             {saving ? 'Saving…' : isNew ? 'Create product' : 'Save changes'}
           </button>
-          <button type="button" onClick={() => router.back()}
+          <button
+            type="button"
+            onClick={() => router.back()}
             className="px-6 py-2.5 rounded-xl text-sm font-medium text-brand-gold/60 hover:text-brand-gold transition-colors border"
-            style={{ borderColor: 'rgba(200,151,58,0.20)' }}>
+            style={{ borderColor: 'rgba(200,151,58,0.20)' }}
+          >
             Cancel
           </button>
           {!isNew && (
-            <button type="button" onClick={() => setConfirmDelete(true)}
-              className="ml-auto px-4 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-900/10 transition-colors border border-red-900/20">
+            <button
+              type="button"
+              onClick={() => setConfirmDelete(true)}
+              className="ml-auto px-4 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-900/10 transition-colors border border-red-900/20"
+            >
               Delete
             </button>
           )}
@@ -290,8 +375,11 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
               {images
                 .sort((a, b) => a.sortOrder - b.sortOrder)
                 .map((img) => (
-                  <div key={img.id} className="relative group aspect-square rounded-xl overflow-hidden"
-                    style={{ background: 'rgba(255,255,255,0.04)' }}>
+                  <div
+                    key={img.id}
+                    className="relative group aspect-square rounded-xl overflow-hidden"
+                    style={{ background: 'rgba(255,255,255,0.04)' }}
+                  >
                     <Image
                       src={img.url}
                       alt={img.altText || 'Product image'}
@@ -328,8 +416,16 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
               <span className="text-brand-gold/50 text-xs">Uploading…</span>
             ) : (
               <>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  strokeWidth="1.5" className="text-brand-gold/40" aria-hidden="true">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="text-brand-gold/40"
+                  aria-hidden="true"
+                >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="17 8 12 3 7 8" />
                   <line x1="12" y1="3" x2="12" y2="15" />
@@ -341,9 +437,7 @@ export function ProductForm({ categories, initial, initialImages = [], isNew }: 
             )}
           </label>
 
-          {imageError && (
-            <p className="mt-2 text-xs text-red-400">{imageError}</p>
-          )}
+          {imageError && <p className="mt-2 text-xs text-red-400">{imageError}</p>}
         </div>
       )}
 

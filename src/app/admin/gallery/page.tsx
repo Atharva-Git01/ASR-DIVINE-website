@@ -16,7 +16,9 @@ export default async function AdminGalleryPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-brand-cream">Gallery</h1>
-        <p className="text-xs text-brand-gold/40">{images.length} image{images.length !== 1 ? 's' : ''}</p>
+        <p className="text-xs text-brand-gold/40">
+          {images.length} image{images.length !== 1 ? 's' : ''}
+        </p>
       </div>
       <GalleryAdmin initialImages={images} />
     </div>

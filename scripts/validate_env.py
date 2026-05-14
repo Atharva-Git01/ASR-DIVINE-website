@@ -70,6 +70,8 @@ def main() -> None:
                         help="Path to .env file to load (default: .env.local)")
     parser.add_argument("--strict", action="store_true",
                         help="Fail even if optional vars are missing")
+    parser.add_argument("--production", action="store_true",
+                        help="Fail on deploy-unsafe placeholder or test payment values")
     args = parser.parse_args()
 
     if os.path.exists(args.env_file):
@@ -107,6 +109,21 @@ def main() -> None:
             if not ok:
                 table.add_row(name, description, "[red]INVALID[/red]", str(rule_desc))
                 errors.append(f"{name} ({rule_desc})")
+                return
+
+        if args.production:
+            deploy_error = None
+            lower_value = value.lower()
+            if name == "NEXT_PUBLIC_RAZORPAY_KEY_ID" and not value.startswith("rzp_live_"):
+                deploy_error = "production deploy requires a Razorpay live key (rzp_live_*)"
+            elif name in {"RAZORPAY_KEY_SECRET", "RAZORPAY_WEBHOOK_SECRET"} and (
+                "placeholder" in lower_value or lower_value.startswith("your-")
+            ):
+                deploy_error = "production deploy requires a real Razorpay secret"
+
+            if deploy_error:
+                table.add_row(name, description, "[red]INVALID[/red]", deploy_error)
+                errors.append(f"{name} ({deploy_error})")
                 return
 
         # Mask secrets in output

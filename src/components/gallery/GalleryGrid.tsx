@@ -29,9 +29,8 @@ export function GalleryGrid({ images }: Props) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  const filtered = activeCategory === 'All'
-    ? images
-    : images.filter((img) => img.category === activeCategory)
+  const filtered =
+    activeCategory === 'All' ? images : images.filter((img) => img.category === activeCategory)
 
   const closeLightbox = () => setLightboxIndex(null)
 
@@ -65,7 +64,8 @@ export function GalleryGrid({ images }: Props) {
           {filtered.map((img, i) => {
             const imageUrl = img.image?.asset?.url
             const imageAlt = img.image?.alt ?? img.caption ?? 'Gallery image'
-            const gradient = GRADIENT_PLACEHOLDERS[i % GRADIENT_PLACEHOLDERS.length] ?? GRADIENT_PLACEHOLDERS[0]
+            const gradient =
+              GRADIENT_PLACEHOLDERS[i % GRADIENT_PLACEHOLDERS.length] ?? GRADIENT_PLACEHOLDERS[0]
 
             return (
               <button
@@ -128,7 +128,16 @@ export function GalleryGrid({ images }: Props) {
             className="absolute top-4 right-4 text-brand-cream/70 hover:text-brand-cream transition-colors"
             aria-label="Close lightbox"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
@@ -137,22 +146,46 @@ export function GalleryGrid({ images }: Props) {
           {/* Prev / Next */}
           {lightboxIndex > 0 && (
             <button
-              onClick={(e) => { e.stopPropagation(); setLightboxIndex(lightboxIndex - 1) }}
+              onClick={(e) => {
+                e.stopPropagation()
+                setLightboxIndex(lightboxIndex - 1)
+              }}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-cream/70 hover:text-brand-cream transition-colors"
               aria-label="Previous image"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
           )}
           {lightboxIndex < filtered.length - 1 && (
             <button
-              onClick={(e) => { e.stopPropagation(); setLightboxIndex(lightboxIndex + 1) }}
+              onClick={(e) => {
+                e.stopPropagation()
+                setLightboxIndex(lightboxIndex + 1)
+              }}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-cream/70 hover:text-brand-cream transition-colors"
               aria-label="Next image"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
@@ -173,7 +206,9 @@ export function GalleryGrid({ images }: Props) {
             ) : (
               <div
                 className="w-80 h-80 rounded-2xl"
-                style={{ background: GRADIENT_PLACEHOLDERS[lightboxIndex % GRADIENT_PLACEHOLDERS.length] }}
+                style={{
+                  background: GRADIENT_PLACEHOLDERS[lightboxIndex % GRADIENT_PLACEHOLDERS.length],
+                }}
               />
             )}
             {filtered[lightboxIndex]?.caption && (

@@ -48,9 +48,7 @@ export function LocalBusinessSchema({
     servesCuisine: 'Confectionery',
     priceRange: '₹₹',
     image: 'https://cocoaandcrumb.in/og-image.jpg',
-    sameAs: [
-      'https://www.instagram.com/cocoaandcrumb',
-    ],
+    sameAs: ['https://www.instagram.com/cocoaandcrumb'],
   }
 
   return (

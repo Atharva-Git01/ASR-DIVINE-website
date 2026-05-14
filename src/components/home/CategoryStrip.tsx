@@ -34,9 +34,7 @@ export async function CategoryStrip() {
     .order('name')
     .limit(6)
 
-  const display = data && data.length > 0
-    ? (data as Category[]).slice(0, 6)
-    : FALLBACK_CATEGORIES
+  const display = data && data.length > 0 ? (data as Category[]).slice(0, 6) : FALLBACK_CATEGORIES
 
   return (
     <section className="bg-brand-cream py-14 lg:py-20">

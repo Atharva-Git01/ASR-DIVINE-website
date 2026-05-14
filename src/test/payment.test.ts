@@ -1,20 +1,20 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createHmac } from 'crypto'
-
-// ── HMAC signature helpers (mirrors verify/route.ts logic) ─────────────────
+import { calculatePricingFromRows, PricingError, totalsMatch } from '@/lib/payment/pricing'
+import { verifyPaymentSignature, verifyWebhookSignature } from '@/lib/payment/razorpay'
 
 function computeSignature(orderId: string, paymentId: string, secret: string): string {
-  return createHmac('sha256', secret)
-    .update(`${orderId}|${paymentId}`)
-    .digest('hex')
+  return createHmac('sha256', secret).update(`${orderId}|${paymentId}`).digest('hex')
 }
 
-function verifySignature(orderId: string, paymentId: string, signature: string, secret: string): boolean {
-  const expected = computeSignature(orderId, paymentId, secret)
-  return expected === signature
+function verifySignature(
+  orderId: string,
+  paymentId: string,
+  signature: string,
+  secret: string
+): boolean {
+  return verifyPaymentSignature({ orderId, paymentId, signature, secret })
 }
-
-// ── Tests ───────────────────────────────────────────────────────────────────
 
 describe('Payment HMAC signature verification', () => {
   const SECRET = 'test_secret_key_for_unit_tests_only'
@@ -50,47 +50,83 @@ describe('Payment HMAC signature verification', () => {
   })
 })
 
-// ── Amount validation (mirrors create-order/route.ts logic) ─────────────────
+describe('Server order pricing', () => {
+  it('computes totals from product rows, variants, gift wrap, delivery, and coupons', () => {
+    const pricing = calculatePricingFromRows({
+      items: [
+        { productId: 'p1', variantId: 'v1', qty: 2, giftWrapped: true },
+        { productId: 'p2', qty: 1, giftWrapped: false },
+      ],
+      productRows: [
+        {
+          id: 'p1',
+          base_price: 100,
+          is_active: true,
+          product_variants: [{ id: 'v1', price_delta: 50, is_active: true }],
+        },
+        { id: 'p2', base_price: 900, is_active: true, product_variants: [] },
+      ],
+      coupon: {
+        id: 'coupon-1',
+        code: 'WELCOME10',
+        discount_type: 'percentage',
+        discount_value: 10,
+        min_order_amount: 100,
+        max_uses: null,
+        used_count: 0,
+        valid_until: null,
+        is_active: true,
+      },
+    })
 
-function validateAmount(amount: unknown): { valid: boolean; error?: string } {
-  if (!amount || typeof amount !== 'number' || amount < 1) {
-    return { valid: false, error: 'Invalid amount' }
-  }
-  return { valid: true }
-}
-
-describe('Payment amount validation', () => {
-  it('accepts a positive numeric amount', () => {
-    expect(validateAmount(599)).toEqual({ valid: true })
-    expect(validateAmount(1)).toEqual({ valid: true })
+    expect(pricing.subtotal).toBe(1200)
+    expect(pricing.deliveryCharge).toBe(0)
+    expect(pricing.giftWrapCharges).toBe(30)
+    expect(pricing.discountAmount).toBe(120)
+    expect(pricing.total).toBe(1110)
+    expect(pricing.lines[0]?.unitPrice).toBe(150)
   })
 
-  it('rejects 0', () => {
-    expect(validateAmount(0).valid).toBe(false)
+  it('rejects inactive products and stale variants as cart changes', () => {
+    expect(() =>
+      calculatePricingFromRows({
+        items: [{ productId: 'p1', variantId: 'v1', qty: 1, giftWrapped: false }],
+        productRows: [
+          {
+            id: 'p1',
+            base_price: 100,
+            is_active: true,
+            product_variants: [{ id: 'v1', price_delta: 50, is_active: false }],
+          },
+        ],
+      })
+    ).toThrow(PricingError)
   })
 
-  it('rejects negative amounts', () => {
-    expect(validateAmount(-100).valid).toBe(false)
-  })
-
-  it('rejects string amounts', () => {
-    expect(validateAmount('599').valid).toBe(false)
-  })
-
-  it('rejects null', () => {
-    expect(validateAmount(null).valid).toBe(false)
-  })
-
-  it('rejects undefined', () => {
-    expect(validateAmount(undefined).valid).toBe(false)
-  })
-
-  it('rejects NaN', () => {
-    expect(validateAmount(NaN).valid).toBe(false)
+  it('detects stale client totals before creating Razorpay orders', () => {
+    expect(totalsMatch(1110, 1110)).toBe(true)
+    expect(totalsMatch(1110.4, 1110)).toBe(true)
+    expect(totalsMatch(1100, 1110)).toBe(false)
+    expect(totalsMatch('1110', 1110)).toBe(false)
   })
 })
 
-// ── Upstash rate limiter mock ───────────────────────────────────────────────
+describe('Webhook HMAC signature verification', () => {
+  const SECRET = 'webhook_secret_for_unit_tests'
+  const BODY = JSON.stringify({ event: 'payment.captured' })
+
+  it('accepts a valid webhook signature', () => {
+    const signature = createHmac('sha256', SECRET).update(BODY).digest('hex')
+    expect(verifyWebhookSignature({ rawBody: BODY, signature, secret: SECRET })).toBe(true)
+  })
+
+  it('rejects a missing or malformed webhook signature', () => {
+    expect(verifyWebhookSignature({ rawBody: BODY, signature: '', secret: SECRET })).toBe(false)
+    expect(verifyWebhookSignature({ rawBody: BODY, signature: 'abc123', secret: SECRET })).toBe(
+      false
+    )
+  })
+})
 
 describe('Rate limiter behaviour (mocked)', () => {
   beforeEach(() => {
@@ -98,7 +134,6 @@ describe('Rate limiter behaviour (mocked)', () => {
   })
 
   it('returns 429 when the rate limiter reports failure', async () => {
-    // Mock the Ratelimit.limit call
     const limitMock = vi.fn().mockResolvedValue({ success: false })
     const limiter = { limit: limitMock }
 

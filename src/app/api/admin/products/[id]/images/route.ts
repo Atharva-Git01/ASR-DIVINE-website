@@ -5,10 +5,7 @@ import { adminDb } from '@/lib/supabase/admin'
 
 // POST /api/admin/products/[id]/images
 // Accepts multipart/form-data with a `file` field + optional `altText`
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   const guard = await requireAdmin(request)
   if (guard) return guard
 
@@ -50,9 +47,8 @@ export async function POST(
     .order('sort_order', { ascending: false })
     .limit(1)
 
-  const nextSortOrder = existing?.[0]?.sort_order != null
-    ? (existing[0].sort_order as number) + 1
-    : 0
+  const nextSortOrder =
+    existing?.[0]?.sort_order != null ? (existing[0].sort_order as number) + 1 : 0
 
   // Upload to Supabase Storage
   const ext = file.name.split('.').pop() ?? 'jpg'
@@ -60,8 +56,7 @@ export async function POST(
 
   const arrayBuffer = await file.arrayBuffer()
   const { error: uploadError } = await adminDb()
-    .storage
-    .from('product-images')
+    .storage.from('product-images')
     .upload(storagePath, arrayBuffer, {
       contentType: file.type,
       upsert: false,
@@ -91,14 +86,14 @@ export async function POST(
 
   const publicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product-images/${storagePath}`
 
-  return NextResponse.json({ id: row.id, url: publicUrl, storagePath, sortOrder: nextSortOrder }, { status: 201 })
+  return NextResponse.json(
+    { id: row.id, url: publicUrl, storagePath, sortOrder: nextSortOrder },
+    { status: 201 }
+  )
 }
 
 // DELETE /api/admin/products/[id]/images?imageId=xxx
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   const guard = await requireAdmin(request)
   if (guard) return guard
 
@@ -121,15 +116,11 @@ export async function DELETE(
 
   // Remove from storage
   await adminDb()
-    .storage
-    .from('product-images')
+    .storage.from('product-images')
     .remove([img.storage_path as string])
 
   // Remove DB row
-  await adminDb()
-    .from('product_images')
-    .delete()
-    .eq('id', imageId)
+  await adminDb().from('product_images').delete().eq('id', imageId)
 
   return NextResponse.json({ success: true })
 }

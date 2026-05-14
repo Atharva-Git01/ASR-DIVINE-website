@@ -14,7 +14,10 @@ export default async function AccountLayout({ children }: { children: React.Reac
 
   return (
     <div className="bg-brand-cream min-h-screen">
-      <div className="bg-brand-white border-b pt-14 pb-10" style={{ borderColor: 'rgba(44,26,14,0.08)' }}>
+      <div
+        className="bg-brand-white border-b pt-14 pb-10"
+        style={{ borderColor: 'rgba(44,26,14,0.08)' }}
+      >
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <p className="eyebrow mb-2">Your Account</p>
           <h1 className="font-display text-display-sm text-brand-brown-deep italic">

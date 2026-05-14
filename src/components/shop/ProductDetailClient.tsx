@@ -52,7 +52,9 @@ export function ProductDetailClient({ product }: Props) {
       <div className="space-y-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-brand-text-secondary">
-          <Link href="/shop" className="hover:text-brand-brown-deep transition-colors">Shop</Link>
+          <Link href="/shop" className="hover:text-brand-brown-deep transition-colors">
+            Shop
+          </Link>
           {product.category && (
             <>
               <span>/</span>
@@ -94,9 +96,7 @@ export function ProductDetailClient({ product }: Props) {
 
         {/* Description */}
         {product.description && (
-          <p className="text-sm text-brand-text-secondary leading-relaxed">
-            {product.description}
-          </p>
+          <p className="text-sm text-brand-text-secondary leading-relaxed">{product.description}</p>
         )}
 
         {/* Variants */}
@@ -122,7 +122,9 @@ export function ProductDetailClient({ product }: Props) {
             >
               −
             </button>
-            <span className="w-8 text-center text-sm font-medium text-brand-text-primary">{qty}</span>
+            <span className="w-8 text-center text-sm font-medium text-brand-text-primary">
+              {qty}
+            </span>
             <button
               onClick={() => setQty(qty + 1)}
               className="w-10 h-10 flex items-center justify-center text-brand-text-secondary hover:text-brand-brown-deep transition-colors"
@@ -131,10 +133,7 @@ export function ProductDetailClient({ product }: Props) {
               +
             </button>
           </div>
-          <button
-            onClick={handleAddToCart}
-            className="btn-primary flex-1 justify-center"
-          >
+          <button onClick={handleAddToCart} className="btn-primary flex-1 justify-center">
             {added ? 'Added ✓' : 'Add to Cart'}
           </button>
         </div>
@@ -151,7 +150,9 @@ export function ProductDetailClient({ product }: Props) {
         </a>
 
         {/* Meta info */}
-        {(product.servingSize ?? product.shelfLife ?? (product.allergens && product.allergens.length > 0)) && (
+        {(product.servingSize ??
+          product.shelfLife ??
+          (product.allergens && product.allergens.length > 0)) && (
           <div
             className="rounded-xl p-4 space-y-2"
             style={{ background: 'rgba(44,26,14,0.03)', border: '1px solid rgba(44,26,14,0.06)' }}
@@ -171,7 +172,9 @@ export function ProductDetailClient({ product }: Props) {
             {product.allergens && product.allergens.length > 0 && (
               <div className="flex justify-between text-xs">
                 <span className="text-brand-text-secondary">Allergens</span>
-                <span className="text-brand-text-primary font-medium">{product.allergens.join(', ')}</span>
+                <span className="text-brand-text-primary font-medium">
+                  {product.allergens.join(', ')}
+                </span>
               </div>
             )}
           </div>
@@ -198,7 +201,17 @@ export function ProductDetailClient({ product }: Props) {
 
 function WhatsappIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
     </svg>
   )

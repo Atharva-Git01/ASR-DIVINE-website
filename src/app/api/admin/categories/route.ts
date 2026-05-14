@@ -8,7 +8,8 @@ export async function POST(request: NextRequest) {
   if (guard) return guard
 
   const { name, slug, description, is_active } = await request.json()
-  if (!name || !slug) return NextResponse.json({ error: 'name and slug are required' }, { status: 400 })
+  if (!name || !slug)
+    return NextResponse.json({ error: 'name and slug are required' }, { status: 400 })
 
   const { data, error } = await adminDb()
     .from('categories')

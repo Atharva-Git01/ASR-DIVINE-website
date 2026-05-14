@@ -4,7 +4,7 @@ import { Redis } from '@upstash/redis'
 
 type WindowConfig = { requests: number; window: Parameters<typeof Ratelimit.slidingWindow>[1] }
 
-let limiterCache: Map<string, Ratelimit> = new Map()
+const limiterCache: Map<string, Ratelimit> = new Map()
 
 /**
  * Returns a sliding-window rate limiter backed by Upstash Redis.
@@ -40,7 +40,7 @@ function getLimiter(key: string, cfg: WindowConfig): Ratelimit | null {
 export async function applyRateLimit(
   request: Request,
   routeKey: string,
-  cfg: WindowConfig,
+  cfg: WindowConfig
 ): Promise<NextResponse | null> {
   const limiter = getLimiter(routeKey, cfg)
   if (!limiter) return null
@@ -63,7 +63,7 @@ export async function applyRateLimit(
           'X-RateLimit-Reset': String(reset),
           'Retry-After': String(Math.ceil((reset - Date.now()) / 1000)),
         },
-      },
+      }
     )
   }
 

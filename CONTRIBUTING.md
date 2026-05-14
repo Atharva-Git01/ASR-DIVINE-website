@@ -2,12 +2,12 @@
 
 ## Prerequisites
 
-| Tool | Version |
-|------|---------|
-| Node.js | 24.x |
-| pnpm | 10.x |
-| Python | 3.11+ |
-| Git | any recent |
+| Tool    | Version    |
+| ------- | ---------- |
+| Node.js | 24.x       |
+| pnpm    | 10.x       |
+| Python  | 3.11+      |
+| Git     | any recent |
 
 ---
 
@@ -65,12 +65,12 @@ source asrdivine/bin/activate
 
 ### Available scripts
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/seed.py` | Seed Supabase with realistic test data |
-| `scripts/export_orders.py` | Export orders to CSV |
-| `scripts/health_check.py` | Hit all tRPC / API endpoints and report status |
-| `scripts/validate_env.py` | Validate `.env.local` before deploy |
+| Script                     | Purpose                                        |
+| -------------------------- | ---------------------------------------------- |
+| `scripts/seed.py`          | Seed Supabase with realistic test data         |
+| `scripts/export_orders.py` | Export orders to CSV                           |
+| `scripts/health_check.py`  | Hit all tRPC / API endpoints and report status |
+| `scripts/validate_env.py`  | Validate `.env.local` before deploy            |
 
 #### Seed the database
 

@@ -1,5 +1,5 @@
 import { getToken } from 'next-auth/jwt'
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 /**
  * Server-side admin guard for all /api/admin/* route handlers.

@@ -54,6 +54,7 @@ became clear that:
 ### Context
 
 The app originally used both:
+
 1. **NextAuth.js v4** — JWT sessions, `getToken()` for server-side checks,
    Google OAuth, credentials provider via `supabase.auth.signInWithPassword`.
 2. **Supabase Auth** — `supabase.auth.signInWithPassword` for credentials login,
@@ -144,19 +145,19 @@ when the secret was unset.
 
 ## Stack summary
 
-| Concern | Technology |
-|---------|-----------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript (strict) |
-| Package manager | pnpm 10 |
-| Database | Supabase Postgres |
-| File storage | Supabase Storage |
-| Auth | NextAuth.js v4 (JWT, Google OAuth, credentials) |
-| API layer | tRPC v10 |
-| Payments | Razorpay |
-| Email | Resend (optional) |
-| Notifications | WhatsApp Cloud API (optional) |
-| Error tracking | Sentry (optional) |
-| Rate limiting | Upstash Redis (optional) |
-| Unit tests | Vitest + jsdom |
-| Dev tooling | Python 3.11 + virtualenv `asrdivine` |
+| Concern         | Technology                                      |
+| --------------- | ----------------------------------------------- |
+| Framework       | Next.js 14 (App Router)                         |
+| Language        | TypeScript (strict)                             |
+| Package manager | pnpm 10                                         |
+| Database        | Supabase Postgres                               |
+| File storage    | Supabase Storage                                |
+| Auth            | NextAuth.js v4 (JWT, Google OAuth, credentials) |
+| API layer       | tRPC v10                                        |
+| Payments        | Razorpay                                        |
+| Email           | Resend (optional)                               |
+| Notifications   | WhatsApp Cloud API (optional)                   |
+| Error tracking  | Sentry (optional)                               |
+| Rate limiting   | Upstash Redis (optional)                        |
+| Unit tests      | Vitest + jsdom                                  |
+| Dev tooling     | Python 3.11 + virtualenv `asrdivine`            |

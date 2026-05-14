@@ -15,10 +15,27 @@ type Address = {
 
 // Demo until tRPC addresses.list is wired
 const DEMO_ADDRESSES: Address[] = [
-  { id: 'a1', label: 'Home', line1: 'Flat 4B, Sunrise Apartments', line2: 'Koregaon Park', city: 'Pune', state: 'Maharashtra', pincode: '411001', isDefault: true },
+  {
+    id: 'a1',
+    label: 'Home',
+    line1: 'Flat 4B, Sunrise Apartments',
+    line2: 'Koregaon Park',
+    city: 'Pune',
+    state: 'Maharashtra',
+    pincode: '411001',
+    isDefault: true,
+  },
 ]
 
-const EMPTY_FORM = { label: 'Home', line1: '', line2: '', city: 'Pune', state: 'Maharashtra', pincode: '', isDefault: false }
+const EMPTY_FORM = {
+  label: 'Home',
+  line1: '',
+  line2: '',
+  city: 'Pune',
+  state: 'Maharashtra',
+  pincode: '',
+  isDefault: false,
+}
 
 export default function AddressesPage() {
   const [addresses, setAddresses] = useState<Address[]>(DEMO_ADDRESSES)
@@ -77,7 +94,9 @@ export default function AddressesPage() {
               )}
             </div>
             <p className="text-sm text-brand-text-secondary leading-relaxed">
-              {addr.line1}{addr.line2 ? `, ${addr.line2}` : ''}<br />
+              {addr.line1}
+              {addr.line2 ? `, ${addr.line2}` : ''}
+              <br />
               {addr.city}, {addr.state} – {addr.pincode}
             </p>
           </div>
@@ -97,32 +116,72 @@ export default function AddressesPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label className="block text-xs text-brand-text-secondary mb-1.5">Label</label>
-              <select value={form.label} onChange={(e) => handleChange('label', e.target.value)} className="input">
+              <select
+                value={form.label}
+                onChange={(e) => handleChange('label', e.target.value)}
+                className="input"
+              >
                 <option>Home</option>
                 <option>Office</option>
                 <option>Other</option>
               </select>
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-xs text-brand-text-secondary mb-1.5">Address line 1 *</label>
-              <input type="text" value={form.line1} onChange={(e) => handleChange('line1', e.target.value)} required className="input" placeholder="Flat / Building name, Street" />
+              <label className="block text-xs text-brand-text-secondary mb-1.5">
+                Address line 1 *
+              </label>
+              <input
+                type="text"
+                value={form.line1}
+                onChange={(e) => handleChange('line1', e.target.value)}
+                required
+                className="input"
+                placeholder="Flat / Building name, Street"
+              />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-xs text-brand-text-secondary mb-1.5">Address line 2</label>
-              <input type="text" value={form.line2} onChange={(e) => handleChange('line2', e.target.value)} className="input" placeholder="Area / Landmark" />
+              <label className="block text-xs text-brand-text-secondary mb-1.5">
+                Address line 2
+              </label>
+              <input
+                type="text"
+                value={form.line2}
+                onChange={(e) => handleChange('line2', e.target.value)}
+                className="input"
+                placeholder="Area / Landmark"
+              />
             </div>
             <div>
               <label className="block text-xs text-brand-text-secondary mb-1.5">City *</label>
-              <input type="text" value={form.city} onChange={(e) => handleChange('city', e.target.value)} required className="input" />
+              <input
+                type="text"
+                value={form.city}
+                onChange={(e) => handleChange('city', e.target.value)}
+                required
+                className="input"
+              />
             </div>
             <div>
               <label className="block text-xs text-brand-text-secondary mb-1.5">Pincode *</label>
-              <input type="text" value={form.pincode} onChange={(e) => handleChange('pincode', e.target.value)} required pattern="\d{6}" className="input" placeholder="411001" />
+              <input
+                type="text"
+                value={form.pincode}
+                onChange={(e) => handleChange('pincode', e.target.value)}
+                required
+                pattern="\d{6}"
+                className="input"
+                placeholder="411001"
+              />
             </div>
           </div>
 
           <label className="flex items-center gap-2 text-sm text-brand-text-secondary cursor-pointer">
-            <input type="checkbox" checked={form.isDefault} onChange={(e) => handleChange('isDefault', e.target.checked)} className="rounded" />
+            <input
+              type="checkbox"
+              checked={form.isDefault}
+              onChange={(e) => handleChange('isDefault', e.target.checked)}
+              className="rounded"
+            />
             Set as default address
           </label>
 

@@ -49,9 +49,7 @@ const envSchema = z.object({
 const parsed = envSchema.safeParse(process.env)
 
 if (!parsed.success && typeof window === 'undefined') {
-  const issues = parsed.error.issues
-    .map((i) => `  • ${i.path.join('.')}: ${i.message}`)
-    .join('\n')
+  const issues = parsed.error.issues.map((i) => `  • ${i.path.join('.')}: ${i.message}`).join('\n')
   // eslint-disable-next-line no-console
   console.error(`\n[env] Missing or invalid environment variables:\n${issues}\n`)
   // Don't throw at build time — Next.js builds without all runtime vars.

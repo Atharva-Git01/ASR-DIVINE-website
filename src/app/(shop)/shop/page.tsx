@@ -12,11 +12,7 @@ export const metadata: Metadata = {
 export default async function ShopPage() {
   const [products, categoriesRes] = await Promise.all([
     getAllProducts(),
-    adminDb()
-      .from('categories')
-      .select('id, name, slug')
-      .eq('is_active', true)
-      .order('sort_order'),
+    adminDb().from('categories').select('id, name, slug').eq('is_active', true).order('sort_order'),
   ])
 
   const categories = (categoriesRes.data ?? []) as Array<{
@@ -27,7 +23,10 @@ export default async function ShopPage() {
 
   return (
     <div className="bg-brand-cream min-h-screen">
-      <div className="bg-brand-white border-b pt-14 pb-12" style={{ borderColor: 'rgba(44,26,14,0.08)' }}>
+      <div
+        className="bg-brand-white border-b pt-14 pb-12"
+        style={{ borderColor: 'rgba(44,26,14,0.08)' }}
+      >
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <p className="eyebrow mb-3">Full Menu</p>
           <h1 className="font-display text-display-md text-brand-brown-deep italic">

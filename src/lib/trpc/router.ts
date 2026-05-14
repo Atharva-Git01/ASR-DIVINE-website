@@ -28,12 +28,16 @@ export const appRouter = router({
   // ── Products ────────────────────────────────────────────────
   products: router({
     list: publicProcedure
-      .input(z.object({
-        category: z.string().optional(),
-        search: z.string().optional(),
-        page: z.number().min(1).default(1),
-        limit: z.number().min(1).max(50).default(12),
-      }).optional())
+      .input(
+        z
+          .object({
+            category: z.string().optional(),
+            search: z.string().optional(),
+            page: z.number().min(1).default(1),
+            limit: z.number().min(1).max(50).default(12),
+          })
+          .optional()
+      )
       .query(async ({ input }) => {
         const supabase = db()
         const page = input?.page ?? 1
@@ -42,7 +46,9 @@ export const appRouter = router({
 
         let query = supabase
           .from('products')
-          .select('*, categories(name, slug), product_images(storage_path, alt_text, sort_order)', { count: 'exact' })
+          .select('*, categories(name, slug), product_images(storage_path, alt_text, sort_order)', {
+            count: 'exact',
+          })
           .eq('is_active', true)
           .order('name')
           .range(from, from + limit - 1)
@@ -55,18 +61,16 @@ export const appRouter = router({
         return { items: data ?? [], total: count ?? 0 }
       }),
 
-    bySlug: publicProcedure
-      .input(z.object({ slug: z.string() }))
-      .query(async ({ input }) => {
-        const { data, error } = await db()
-          .from('products')
-          .select('*, categories(name, slug), product_images(*), product_variants(*)')
-          .eq('slug', input.slug)
-          .eq('is_active', true)
-          .single()
-        if (error || !data) throw new TRPCError({ code: 'NOT_FOUND' })
-        return data
-      }),
+    bySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
+      const { data, error } = await db()
+        .from('products')
+        .select('*, categories(name, slug), product_images(*), product_variants(*)')
+        .eq('slug', input.slug)
+        .eq('is_active', true)
+        .single()
+      if (error || !data) throw new TRPCError({ code: 'NOT_FOUND' })
+      return data
+    }),
   }),
 
   // ── Categories ──────────────────────────────────────────────
@@ -89,14 +93,20 @@ export const appRouter = router({
     }),
 
     update: protectedProcedure
-      .input(z.object({
-        fullName: z.string().min(1).optional(),
-        phone: z.string().optional(),
-      }))
+      .input(
+        z.object({
+          fullName: z.string().min(1).optional(),
+          phone: z.string().optional(),
+        })
+      )
       .mutation(async ({ ctx, input }) => {
         const { error } = await db()
           .from('profiles')
-          .update({ full_name: input.fullName, phone: input.phone, updated_at: new Date().toISOString() })
+          .update({
+            full_name: input.fullName,
+            phone: input.phone,
+            updated_at: new Date().toISOString(),
+          })
           .eq('id', ctx.userId)
         if (error) throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: error.message })
         return { success: true }
@@ -115,15 +125,17 @@ export const appRouter = router({
     }),
 
     create: protectedProcedure
-      .input(z.object({
-        label: z.string().default('Home'),
-        line1: z.string().min(1),
-        line2: z.string().optional(),
-        city: z.string().default('Pune'),
-        state: z.string().default('Maharashtra'),
-        pincode: z.string().regex(/^\d{6}$/),
-        isDefault: z.boolean().default(false),
-      }))
+      .input(
+        z.object({
+          label: z.string().default('Home'),
+          line1: z.string().min(1),
+          line2: z.string().optional(),
+          city: z.string().default('Pune'),
+          state: z.string().default('Maharashtra'),
+          pincode: z.string().regex(/^\d{6}$/),
+          isDefault: z.boolean().default(false),
+        })
+      )
       .mutation(async ({ ctx, input }) => {
         const supabase = db()
         if (input.isDefault) {
@@ -131,7 +143,16 @@ export const appRouter = router({
         }
         const { data, error } = await supabase
           .from('addresses')
-          .insert({ user_id: ctx.userId, label: input.label, line1: input.line1, line2: input.line2, city: input.city, state: input.state, pincode: input.pincode, is_default: input.isDefault })
+          .insert({
+            user_id: ctx.userId,
+            label: input.label,
+            line1: input.line1,
+            line2: input.line2,
+            city: input.city,
+            state: input.state,
+            pincode: input.pincode,
+            is_default: input.isDefault,
+          })
           .select('id')
           .single()
         if (error) throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: error.message })
@@ -154,14 +175,18 @@ export const appRouter = router({
   // ── Coupons ─────────────────────────────────────────────────
   coupons: router({
     validate: publicProcedure
-      .input(z.object({
-        code: z.string().min(1),
-        subtotal: z.number().min(0),
-      }))
+      .input(
+        z.object({
+          code: z.string().min(1),
+          subtotal: z.number().min(0),
+        })
+      )
       .mutation(async ({ input }) => {
         const { data, error } = await db()
           .from('coupons')
-          .select('id, code, discount_type, discount_value, min_order_amount, max_uses, used_count, valid_until, is_active')
+          .select(
+            'id, code, discount_type, discount_value, min_order_amount, max_uses, used_count, valid_until, is_active'
+          )
           .eq('code', input.code.toUpperCase().trim())
           .eq('is_active', true)
           .maybeSingle()
@@ -173,7 +198,10 @@ export const appRouter = router({
           throw new TRPCError({ code: 'BAD_REQUEST', message: 'This coupon has expired' })
         }
         if (data.max_uses !== null && data.used_count >= data.max_uses) {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: 'This coupon has reached its usage limit' })
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'This coupon has reached its usage limit',
+          })
         }
         if (input.subtotal < Number(data.min_order_amount)) {
           throw new TRPCError({
@@ -184,7 +212,10 @@ export const appRouter = router({
 
         const discount =
           data.discount_type === 'percentage'
-            ? Math.min(Math.round((input.subtotal * Number(data.discount_value)) / 100), input.subtotal)
+            ? Math.min(
+                Math.round((input.subtotal * Number(data.discount_value)) / 100),
+                input.subtotal
+              )
             : Math.min(Number(data.discount_value), input.subtotal)
 
         return {
@@ -212,13 +243,12 @@ export const appRouter = router({
         if (!data || data.delivery_type === 'unavailable') {
           return {
             serviceable: false as const,
-            message: 'Sorry, we don\'t deliver to this pincode yet.',
+            message: "Sorry, we don't deliver to this pincode yet.",
           }
         }
 
-        const typeLabel = data.delivery_type === 'local'
-          ? 'Bakery delivery'
-          : 'Courier (dry goods only)'
+        const typeLabel =
+          data.delivery_type === 'local' ? 'Bakery delivery' : 'Courier (dry goods only)'
 
         return {
           serviceable: true as const,

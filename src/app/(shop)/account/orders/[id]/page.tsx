@@ -2,7 +2,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 const STATUS_STEPS = [
-  'pending', 'confirmed', 'in_preparation', 'ready', 'out_for_delivery', 'delivered',
+  'pending',
+  'confirmed',
+  'in_preparation',
+  'ready',
+  'out_for_delivery',
+  'delivered',
 ]
 
 const STATUS_LABEL: Record<string, string> = {
@@ -16,12 +21,27 @@ const STATUS_LABEL: Record<string, string> = {
 }
 
 // Demo data — replaced by tRPC orders.byId once Supabase is live
-const DEMO_ORDERS: Record<string, {
-  id: string; orderNumber: string; createdAt: string; status: string;
-  subtotal: number; deliveryCharge: number; total: number;
-  fulfillmentType: string; deliveryAddress?: string;
-  items: Array<{ name: string; variantLabel?: string; qty: number; price: number; giftWrap: boolean }>
-}> = {
+const DEMO_ORDERS: Record<
+  string,
+  {
+    id: string
+    orderNumber: string
+    createdAt: string
+    status: string
+    subtotal: number
+    deliveryCharge: number
+    total: number
+    fulfillmentType: string
+    deliveryAddress?: string
+    items: Array<{
+      name: string
+      variantLabel?: string
+      qty: number
+      price: number
+      giftWrap: boolean
+    }>
+  }
+> = {
   'demo-1': {
     id: 'demo-1',
     orderNumber: 'CC-20260510-4821',
@@ -34,7 +54,13 @@ const DEMO_ORDERS: Record<string, {
     deliveryAddress: 'Flat 4B, Koregaon Park, Pune 411001',
     items: [
       { name: 'Dark Chocolate Truffle Box', qty: 1, price: 599, giftWrap: false },
-      { name: 'Belgian Hazelnut Praline', variantLabel: 'Box of 12', qty: 2, price: 499, giftWrap: true },
+      {
+        name: 'Belgian Hazelnut Praline',
+        variantLabel: 'Box of 12',
+        qty: 2,
+        price: 499,
+        giftWrap: true,
+      },
     ],
   },
 }
@@ -50,12 +76,22 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
     <div className="space-y-8 max-w-2xl">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <Link href="/account/orders" className="text-xs text-brand-text-secondary hover:text-brand-brown-deep transition-colors">
+          <Link
+            href="/account/orders"
+            className="text-xs text-brand-text-secondary hover:text-brand-brown-deep transition-colors"
+          >
             ← Back to orders
           </Link>
-          <h2 className="mt-2 font-body font-semibold text-brand-brown-deep">{order.orderNumber}</h2>
+          <h2 className="mt-2 font-body font-semibold text-brand-brown-deep">
+            {order.orderNumber}
+          </h2>
           <p className="text-xs text-brand-text-secondary">
-            Placed {new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+            Placed{' '}
+            {new Date(order.createdAt).toLocaleDateString('en-IN', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })}
           </p>
         </div>
         <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-brand-gold/15 text-brand-gold flex-shrink-0">
@@ -98,7 +134,12 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       )}
 
       {/* Items */}
-      <div className="card divide-y" style={{ '--tw-divide-opacity': 1, borderColor: 'rgba(44,26,14,0.06)' } as React.CSSProperties}>
+      <div
+        className="card divide-y"
+        style={
+          { '--tw-divide-opacity': 1, borderColor: 'rgba(44,26,14,0.06)' } as React.CSSProperties
+        }
+      >
         {order.items.map((item, i) => (
           <div key={i} className="p-4 flex items-center justify-between gap-4">
             <div>
@@ -106,9 +147,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
               {item.variantLabel && (
                 <p className="text-xs text-brand-text-secondary">{item.variantLabel}</p>
               )}
-              {item.giftWrap && (
-                <span className="text-xs text-brand-gold">🎁 Gift wrapped</span>
-              )}
+              {item.giftWrap && <span className="text-xs text-brand-gold">🎁 Gift wrapped</span>}
             </div>
             <div className="text-right flex-shrink-0">
               <p className="text-xs text-brand-text-secondary">×{item.qty}</p>
@@ -130,7 +169,10 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           <span className="text-brand-text-secondary">Delivery</span>
           <span>{order.deliveryCharge === 0 ? 'Free' : `₹${order.deliveryCharge}`}</span>
         </div>
-        <div className="flex justify-between text-sm font-semibold text-brand-brown-deep pt-2 border-t" style={{ borderColor: 'rgba(44,26,14,0.08)' }}>
+        <div
+          className="flex justify-between text-sm font-semibold text-brand-brown-deep pt-2 border-t"
+          style={{ borderColor: 'rgba(44,26,14,0.08)' }}
+        >
           <span>Total</span>
           <span>₹{order.total.toLocaleString('en-IN')}</span>
         </div>

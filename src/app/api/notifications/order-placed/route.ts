@@ -3,7 +3,10 @@ import { adminDb } from '@/lib/supabase/admin'
 import { applyRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: Request) {
-  const limited = await applyRateLimit(request, 'order-notification', { requests: 30, window: '1 m' })
+  const limited = await applyRateLimit(request, 'order-notification', {
+    requests: 30,
+    window: '1 m',
+  })
   if (limited) return limited
 
   const { orderId, orderNumber } = await request.json()
@@ -11,16 +14,18 @@ export async function POST(request: Request) {
   // Fetch the order to get customer email + items for the receipt
   const { data: order } = await adminDb()
     .from('orders')
-    .select('guest_email, user_id, total, metadata, order_items(product_name, quantity, unit_price)')
+    .select(
+      'guest_email, user_id, total, metadata, order_items(product_name, quantity, unit_price)'
+    )
     .eq('id', orderId)
     .maybeSingle()
 
   // Resolve customer email: guest_email or look up from profiles
-  let customerEmail: string | null = order?.guest_email ?? null
+  const customerEmail: string | null = order?.guest_email ?? null
   if (!customerEmail && order?.user_id) {
     const { data: profile } = await adminDb()
       .from('profiles')
-      .select('email:id')   // profiles has no email column; look up via auth join
+      .select('email:id') // profiles has no email column; look up via auth join
       .eq('id', order.user_id)
       .maybeSingle()
 
@@ -141,24 +146,21 @@ async function sendWhatsAppAlert(orderNumber: string) {
   if (!phoneNumberId || phoneNumberId === 'placeholder') return
   if (!bakeryPhone) return
 
-  const res = await fetch(
-    `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+  const res = await fetch(`https://graph.facebook.com/v20.0/${phoneNumberId}/messages`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      messaging_product: 'whatsapp',
+      to: bakeryPhone,
+      type: 'text',
+      text: {
+        body: `🎉 New order received: ${orderNumber}. Check the admin panel to confirm.`,
       },
-      body: JSON.stringify({
-        messaging_product: 'whatsapp',
-        to: bakeryPhone,
-        type: 'text',
-        text: {
-          body: `🎉 New order received: ${orderNumber}. Check the admin panel to confirm.`,
-        },
-      }),
-    }
-  )
+    }),
+  })
 
   if (!res.ok) throw new Error(`WhatsApp error: ${res.status}`)
 }

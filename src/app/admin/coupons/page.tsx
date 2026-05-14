@@ -4,7 +4,9 @@ import { CouponManager } from '@/components/admin/CouponManager'
 async function getCoupons() {
   const { data } = await adminDb()
     .from('coupons')
-    .select('id, code, discount_type, discount_value, min_order_value, max_uses, used_count, is_active, expires_at')
+    .select(
+      'id, code, discount_type, discount_value, min_order_value, max_uses, used_count, is_active, expires_at'
+    )
     .order('created_at', { ascending: false })
   return data ?? []
 }

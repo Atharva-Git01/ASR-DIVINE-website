@@ -86,7 +86,9 @@ export function ProductGrid({ products, categories }: Props) {
                   ? 'bg-brand-brown-deep text-brand-cream'
                   : 'border text-brand-text-secondary hover:border-brand-brown-deep hover:text-brand-brown-deep'
               }`}
-              style={activeCategory !== cat.slug ? { borderColor: 'rgba(44,26,14,0.20)' } : undefined}
+              style={
+                activeCategory !== cat.slug ? { borderColor: 'rgba(44,26,14,0.20)' } : undefined
+              }
             >
               {cat.name}
             </button>
@@ -106,7 +108,9 @@ export function ProductGrid({ products, categories }: Props) {
                     : 'bg-brand-gold text-brand-choc border-brand-gold'
                   : 'text-brand-text-secondary'
               }`}
-              style={!activeDietary.includes(key) ? { borderColor: 'rgba(44,26,14,0.15)' } : undefined}
+              style={
+                !activeDietary.includes(key) ? { borderColor: 'rgba(44,26,14,0.15)' } : undefined
+              }
             >
               {label}
             </button>
@@ -133,11 +137,12 @@ export function ProductGrid({ products, categories }: Props) {
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-sm text-brand-text-secondary">
-            No products match your filters.
-          </p>
+          <p className="text-sm text-brand-text-secondary">No products match your filters.</p>
           <button
-            onClick={() => { setActiveCategory('all'); setActiveDietary([]) }}
+            onClick={() => {
+              setActiveCategory('all')
+              setActiveDietary([])
+            }}
             className="mt-4 text-xs text-brand-gold underline underline-offset-2"
           >
             Clear filters
@@ -182,7 +187,9 @@ export function ProductGrid({ products, categories }: Props) {
 
                 <div className="flex flex-1 flex-col px-4 pb-4">
                   {product.category && (
-                    <p className="text-xs text-brand-text-secondary mb-1">{product.category.name}</p>
+                    <p className="text-xs text-brand-text-secondary mb-1">
+                      {product.category.name}
+                    </p>
                   )}
                   <Link href={`/shop/product/${product.slug}`}>
                     <h3 className="font-body text-sm font-medium text-brand-text-primary hover:text-brand-brown-deep transition-colors leading-snug">
@@ -197,7 +204,9 @@ export function ProductGrid({ products, categories }: Props) {
                   <p className="mt-2 text-sm font-medium text-brand-brown-deep">
                     ₹{product.basePrice.toLocaleString('en-IN')}
                     {product.variants && product.variants.length > 0 && (
-                      <span className="text-xs text-brand-text-secondary font-normal ml-1">onwards</span>
+                      <span className="text-xs text-brand-text-secondary font-normal ml-1">
+                        onwards
+                      </span>
                     )}
                   </p>
                   <div className="mt-auto pt-4">

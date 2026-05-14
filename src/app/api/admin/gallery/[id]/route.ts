@@ -25,7 +25,11 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
   const { data } = await db.from('gallery_images').select('url').eq('id', params.id).single()
   if (data?.url) {
     const filename = data.url.split('/').pop()
-    if (filename) await db.storage.from('gallery').remove([filename]).catch(() => null)
+    if (filename)
+      await db.storage
+        .from('gallery')
+        .remove([filename])
+        .catch(() => null)
   }
 
   const { error } = await db.from('gallery_images').delete().eq('id', params.id)

@@ -33,7 +33,9 @@ export function ProductVariantSelector({ variants, basePrice, selected, onChange
               style={!isActive ? { borderColor: 'rgba(44,26,14,0.20)' } : undefined}
             >
               <span className="font-medium">{v.label}</span>
-              <span className={`ml-2 text-xs ${isActive ? 'text-brand-cream/70' : 'text-brand-text-secondary'}`}>
+              <span
+                className={`ml-2 text-xs ${isActive ? 'text-brand-cream/70' : 'text-brand-text-secondary'}`}
+              >
                 ₹{price.toLocaleString('en-IN')}
               </span>
             </button>

@@ -18,13 +18,7 @@ type Props = {
   onNext: () => void
 }
 
-export function CartReviewStep({
-  items,
-  subtotal,
-  coupon,
-  onCouponApply,
-  onNext,
-}: Props) {
+export function CartReviewStep({ items, subtotal, coupon, onCouponApply, onNext }: Props) {
   const { updateQty, removeItem, toggleGiftWrap } = useCartStore()
   const [couponCode, setCouponCode] = useState(coupon?.code ?? '')
   const [couponError, setCouponError] = useState<string | null>(null)
@@ -70,7 +64,11 @@ export function CartReviewStep({
             {/* Thumbnail */}
             <div
               className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-brand-cream"
-              style={!item.image ? { background: 'linear-gradient(135deg, #8B5E3C, #5C3D1E)' } : undefined}
+              style={
+                !item.image
+                  ? { background: 'linear-gradient(135deg, #8B5E3C, #5C3D1E)' }
+                  : undefined
+              }
             >
               {item.image && (
                 <Image
@@ -84,7 +82,9 @@ export function CartReviewStep({
             </div>
 
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-brand-text-primary leading-snug">{item.name}</p>
+              <p className="text-sm font-medium text-brand-text-primary leading-snug">
+                {item.name}
+              </p>
               {item.variantLabel && (
                 <p className="text-xs text-brand-text-secondary">{item.variantLabel}</p>
               )}
@@ -179,9 +179,7 @@ export function CartReviewStep({
               </button>
             </div>
           )}
-          {couponError && (
-            <p className="mt-1.5 text-xs text-red-500">{couponError}</p>
-          )}
+          {couponError && <p className="mt-1.5 text-xs text-red-500">{couponError}</p>}
         </div>
 
         {/* Order summary */}

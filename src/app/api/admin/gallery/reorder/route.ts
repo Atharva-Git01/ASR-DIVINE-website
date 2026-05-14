@@ -11,9 +11,7 @@ export async function POST(request: NextRequest) {
   const db = adminDb()
 
   await Promise.all(
-    items.map(({ id, sort_order }) =>
-      db.from('gallery_images').update({ sort_order }).eq('id', id)
-    )
+    items.map(({ id, sort_order }) => db.from('gallery_images').update({ sort_order }).eq('id', id))
   )
 
   return NextResponse.json({ success: true })

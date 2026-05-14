@@ -19,7 +19,9 @@ export default async function AdminCustomRequestsPage() {
       <div className="flex items-center gap-3">
         <h1 className="text-xl font-semibold text-brand-cream">Custom Orders</h1>
         {unread > 0 && (
-          <span className="text-xs px-2 py-0.5 rounded-full bg-brand-gold/15 text-brand-gold">{unread} new</span>
+          <span className="text-xs px-2 py-0.5 rounded-full bg-brand-gold/15 text-brand-gold">
+            {unread} new
+          </span>
         )}
       </div>
       <CustomRequestsClient requests={requests} />

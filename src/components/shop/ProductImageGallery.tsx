@@ -59,9 +59,18 @@ export function ProductImageGallery({ images, name }: Props) {
               aria-label={`View image ${i + 1}`}
             >
               {img.url ? (
-                <Image src={img.url} alt={img.alt ?? name} fill className="object-cover" sizes="64px" />
+                <Image
+                  src={img.url}
+                  alt={img.alt ?? name}
+                  fill
+                  className="object-cover"
+                  sizes="64px"
+                />
               ) : (
-                <div className="h-full w-full" style={{ background: GRADIENT_PLACEHOLDERS[i % 3] }} />
+                <div
+                  className="h-full w-full"
+                  style={{ background: GRADIENT_PLACEHOLDERS[i % 3] }}
+                />
               )}
             </button>
           ))}

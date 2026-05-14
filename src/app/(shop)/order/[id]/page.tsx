@@ -39,11 +39,11 @@ type Order = {
 }
 
 const STATUS_LABEL: Record<string, string> = {
-  pending:        'Pending',
-  confirmed:      'Confirmed',
+  pending: 'Pending',
+  confirmed: 'Confirmed',
   in_preparation: 'In Preparation',
-  delivered:      'Delivered',
-  cancelled:      'Cancelled',
+  delivered: 'Delivered',
+  cancelled: 'Cancelled',
 }
 
 /**
@@ -59,10 +59,7 @@ const STATUS_LABEL: Record<string, string> = {
 async function getOrder(id: string, userId: string | null): Promise<Order | null> {
   const supabase = adminDb()
 
-  let query = supabase
-    .from('orders')
-    .select('*, order_items(*)')
-    .eq('id', id)
+  let query = supabase.from('orders').select('*, order_items(*)').eq('id', id)
 
   if (userId) {
     // Authenticated user: must own the order
@@ -76,11 +73,7 @@ async function getOrder(id: string, userId: string | null): Promise<Order | null
   return data as Order | null
 }
 
-export default async function OrderConfirmationPage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export default async function OrderConfirmationPage({ params }: { params: { id: string } }) {
   const session = await getSession()
   const userId = session?.user?.id ?? null
 
@@ -113,10 +106,8 @@ export default async function OrderConfirmationPage({
           {order ? (
             <p className="mt-2 text-sm text-brand-text-secondary">
               Order{' '}
-              <span className="font-medium text-brand-text-primary">
-                {order.order_number}
-              </span>{' '}
-              has been confirmed. We&apos;ll send you a WhatsApp update when it&apos;s ready.
+              <span className="font-medium text-brand-text-primary">{order.order_number}</span> has
+              been confirmed. We&apos;ll send you a WhatsApp update when it&apos;s ready.
             </p>
           ) : (
             <p className="mt-2 text-sm text-brand-text-secondary">
@@ -128,10 +119,7 @@ export default async function OrderConfirmationPage({
         {order && (
           <>
             {/* Items */}
-            <div
-              className="card divide-y mb-6"
-              style={{ borderColor: 'rgba(44,26,14,0.06)' }}
-            >
+            <div className="card divide-y mb-6" style={{ borderColor: 'rgba(44,26,14,0.06)' }}>
               {order.order_items.map((item, i) => (
                 <div key={i} className="p-4 flex justify-between gap-4 text-sm">
                   <div>

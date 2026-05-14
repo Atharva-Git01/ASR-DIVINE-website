@@ -8,7 +8,10 @@ async function getAnalyticsData() {
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
   const [ordersResult, itemsResult] = await Promise.all([
-    db.from('orders').select('total, created_at, status, payment_status').gte('created_at', thirtyDaysAgo),
+    db
+      .from('orders')
+      .select('total, created_at, status, payment_status')
+      .gte('created_at', thirtyDaysAgo),
     db.from('order_items').select('product_name, quantity, unit_price'),
   ])
 
@@ -89,15 +92,24 @@ export default async function AdminAnalyticsPage() {
       {/* Period summary */}
       <div className="grid grid-cols-3 gap-4">
         {periodRevenue.map(({ days, revenue }) => (
-          <div key={days} className="rounded-2xl border p-4" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}>
+          <div
+            key={days}
+            className="rounded-2xl border p-4"
+            style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}
+          >
             <p className="text-xs text-brand-gold/40 mb-1">Last {days} days</p>
-            <p className="text-xl font-semibold text-brand-gold">₹{revenue.toLocaleString('en-IN')}</p>
+            <p className="text-xl font-semibold text-brand-gold">
+              ₹{revenue.toLocaleString('en-IN')}
+            </p>
           </div>
         ))}
       </div>
 
       {/* 30-day revenue bar chart */}
-      <div className="rounded-2xl border p-5" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}>
+      <div
+        className="rounded-2xl border p-5"
+        style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}
+      >
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm font-medium text-brand-cream">Daily revenue — last 30 days</p>
           <p className="text-xs text-brand-gold">₹{totalRevenue.toLocaleString('en-IN')} total</p>
@@ -107,12 +119,19 @@ export default async function AdminAnalyticsPage() {
             <div key={d.date} className="flex-1 flex flex-col justify-end group relative">
               <div
                 className="rounded-sm bg-brand-gold/40 group-hover:bg-brand-gold transition-colors"
-                style={{ height: `${Math.max((d.revenue / maxRev) * 100, d.revenue > 0 ? 4 : 1)}%` }}
+                style={{
+                  height: `${Math.max((d.revenue / maxRev) * 100, d.revenue > 0 ? 4 : 1)}%`,
+                }}
               />
               <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block z-10 whitespace-nowrap">
-                <div className="rounded-lg px-2 py-1 text-[10px]" style={{ background: '#1a0f07', border: '1px solid rgba(200,151,58,0.20)' }}>
+                <div
+                  className="rounded-lg px-2 py-1 text-[10px]"
+                  style={{ background: '#1a0f07', border: '1px solid rgba(200,151,58,0.20)' }}
+                >
                   <p className="text-brand-gold/60">{shortDate(d.date)}</p>
-                  <p className="text-brand-gold font-medium">₹{d.revenue.toLocaleString('en-IN')}</p>
+                  <p className="text-brand-gold font-medium">
+                    ₹{d.revenue.toLocaleString('en-IN')}
+                  </p>
                 </div>
               </div>
             </div>
@@ -126,7 +145,10 @@ export default async function AdminAnalyticsPage() {
 
       <div className="grid sm:grid-cols-2 gap-6">
         {/* Top products */}
-        <div className="rounded-2xl border p-5" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}>
+        <div
+          className="rounded-2xl border p-5"
+          style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}
+        >
           <p className="text-sm font-medium text-brand-cream mb-4">Top products by revenue</p>
           {topProducts.length === 0 ? (
             <p className="text-xs text-brand-gold/30">No data yet.</p>
@@ -139,7 +161,10 @@ export default async function AdminAnalyticsPage() {
                     <span className="text-brand-gold">₹{p.revenue.toLocaleString('en-IN')}</span>
                   </div>
                   <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
-                    <div className="h-full rounded-full bg-brand-gold/50" style={{ width: `${(p.revenue / maxProductRev) * 100}%` }} />
+                    <div
+                      className="h-full rounded-full bg-brand-gold/50"
+                      style={{ width: `${(p.revenue / maxProductRev) * 100}%` }}
+                    />
                   </div>
                 </div>
               ))}
@@ -148,22 +173,45 @@ export default async function AdminAnalyticsPage() {
         </div>
 
         {/* Order funnel */}
-        <div className="rounded-2xl border p-5" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}>
+        <div
+          className="rounded-2xl border p-5"
+          style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,151,58,0.08)' }}
+        >
           <p className="text-sm font-medium text-brand-cream mb-4">Order funnel — 30 days</p>
           <div className="space-y-3">
             {[
               { label: 'Total orders', value: funnel.total, pct: 100, color: 'bg-white/20' },
-              { label: 'Paid', value: funnel.paid, pct: funnel.total ? (funnel.paid / funnel.total) * 100 : 0, color: 'bg-brand-gold/50' },
-              { label: 'Delivered', value: funnel.delivered, pct: funnel.total ? (funnel.delivered / funnel.total) * 100 : 0, color: 'bg-green-500/40' },
-              { label: 'Cancelled', value: funnel.cancelled, pct: funnel.total ? (funnel.cancelled / funnel.total) * 100 : 0, color: 'bg-red-500/30' },
+              {
+                label: 'Paid',
+                value: funnel.paid,
+                pct: funnel.total ? (funnel.paid / funnel.total) * 100 : 0,
+                color: 'bg-brand-gold/50',
+              },
+              {
+                label: 'Delivered',
+                value: funnel.delivered,
+                pct: funnel.total ? (funnel.delivered / funnel.total) * 100 : 0,
+                color: 'bg-green-500/40',
+              },
+              {
+                label: 'Cancelled',
+                value: funnel.cancelled,
+                pct: funnel.total ? (funnel.cancelled / funnel.total) * 100 : 0,
+                color: 'bg-red-500/30',
+              },
             ].map(({ label, value, pct, color }) => (
               <div key={label}>
                 <div className="flex justify-between text-xs mb-1">
                   <span className="text-brand-cream/60">{label}</span>
-                  <span className="text-brand-gold">{value} <span className="text-brand-gold/40">({pct.toFixed(0)}%)</span></span>
+                  <span className="text-brand-gold">
+                    {value} <span className="text-brand-gold/40">({pct.toFixed(0)}%)</span>
+                  </span>
                 </div>
                 <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
-                  <div className={`h-full rounded-full ${color} transition-all`} style={{ width: `${pct}%` }} />
+                  <div
+                    className={`h-full rounded-full ${color} transition-all`}
+                    style={{ width: `${pct}%` }}
+                  />
                 </div>
               </div>
             ))}

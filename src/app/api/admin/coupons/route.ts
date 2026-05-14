@@ -7,14 +7,26 @@ export async function POST(request: NextRequest) {
   const guard = await requireAdmin(request)
   if (guard) return guard
 
-  const { code, discount_type, discount_value, min_order_value, max_uses, expires_at, is_active } = await request.json()
+  const { code, discount_type, discount_value, min_order_value, max_uses, expires_at, is_active } =
+    await request.json()
   if (!code || !discount_type || discount_value == null) {
-    return NextResponse.json({ error: 'code, discount_type and discount_value are required' }, { status: 400 })
+    return NextResponse.json(
+      { error: 'code, discount_type and discount_value are required' },
+      { status: 400 }
+    )
   }
 
   const { data, error } = await adminDb()
     .from('coupons')
-    .insert({ code: code.toUpperCase(), discount_type, discount_value, min_order_value, max_uses, expires_at, is_active: is_active ?? true })
+    .insert({
+      code: code.toUpperCase(),
+      discount_type,
+      discount_value,
+      min_order_value,
+      max_uses,
+      expires_at,
+      is_active: is_active ?? true,
+    })
     .select('id')
     .single()
 

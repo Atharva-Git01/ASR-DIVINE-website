@@ -13,17 +13,22 @@ const MESSAGES: Record<string, string> = {
   Default: 'An unexpected error occurred during sign-in.',
 }
 
-export default function AuthErrorPage({
-  searchParams,
-}: {
-  searchParams: { error?: string }
-}) {
+export default function AuthErrorPage({ searchParams }: { searchParams: { error?: string } }) {
   const message = MESSAGES[searchParams.error ?? 'Default'] ?? MESSAGES.Default
 
   return (
     <div className="w-full max-w-md text-center card p-8">
       <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#dc2626"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
           <circle cx="12" cy="12" r="10" />
           <line x1="12" y1="8" x2="12" y2="12" />
           <line x1="12" y1="16" x2="12.01" y2="16" />

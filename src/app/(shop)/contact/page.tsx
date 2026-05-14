@@ -32,7 +32,8 @@ const OPENING_HOURS = [
 ]
 
 export default function ContactPage() {
-  const address = process.env.NEXT_PUBLIC_BAKERY_ADDRESS ?? 'Cocoa & Crumb Studio, Pune, Maharashtra 411001'
+  const address =
+    process.env.NEXT_PUBLIC_BAKERY_ADDRESS ?? 'Cocoa & Crumb Studio, Pune, Maharashtra 411001'
   const phone = process.env.NEXT_PUBLIC_BAKERY_PHONE ?? '+91 98765 43210'
   const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'orders@cocoaandcrumb.in'
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_BAKERY_PHONE ?? '919876543210'
@@ -42,15 +43,18 @@ export default function ContactPage() {
   return (
     <div className="bg-brand-cream min-h-screen">
       {/* Header */}
-      <div className="bg-brand-white border-b pt-14 pb-12" style={{ borderColor: 'rgba(44,26,14,0.08)' }}>
+      <div
+        className="bg-brand-white border-b pt-14 pb-12"
+        style={{ borderColor: 'rgba(44,26,14,0.08)' }}
+      >
         <div className="mx-auto max-w-7xl px-6 text-center lg:px-12">
           <p className="eyebrow mb-3 justify-center">Get in Touch</p>
           <h1 className="font-display text-display-md text-brand-brown-deep italic">
             We&apos;d love to hear from you
           </h1>
           <p className="mt-4 text-base text-brand-text-secondary max-w-md mx-auto">
-            For orders, custom enquiries, or corporate gifting — reach us on WhatsApp for
-            the fastest response.
+            For orders, custom enquiries, or corporate gifting — reach us on WhatsApp for the
+            fastest response.
           </p>
 
           {/* WhatsApp CTA */}
@@ -72,14 +76,22 @@ export default function ContactPage() {
           <div className="space-y-10">
             {/* Address & hours */}
             <div>
-              <h2 className="font-body font-semibold text-brand-brown-deep mb-4">Studio Location</h2>
+              <h2 className="font-body font-semibold text-brand-brown-deep mb-4">
+                Studio Location
+              </h2>
               <address className="not-italic text-sm text-brand-text-secondary leading-relaxed mb-4">
                 {address}
               </address>
-              <a href={`tel:${phone}`} className="block text-sm text-brand-text-secondary hover:text-brand-brown-deep transition-colors mb-1">
+              <a
+                href={`tel:${phone}`}
+                className="block text-sm text-brand-text-secondary hover:text-brand-brown-deep transition-colors mb-1"
+              >
                 {phone}
               </a>
-              <a href={`mailto:${email}`} className="block text-sm text-brand-text-secondary hover:text-brand-brown-deep transition-colors">
+              <a
+                href={`mailto:${email}`}
+                className="block text-sm text-brand-text-secondary hover:text-brand-brown-deep transition-colors"
+              >
                 {email}
               </a>
             </div>
@@ -88,7 +100,14 @@ export default function ContactPage() {
               <h2 className="font-body font-semibold text-brand-brown-deep mb-4">Opening Hours</h2>
               <div className="space-y-2">
                 {OPENING_HOURS.map(({ days, hours }) => (
-                  <div key={days} className="flex justify-between text-sm" style={{ borderBottom: '1px solid rgba(44,26,14,0.06)', paddingBottom: '0.5rem' }}>
+                  <div
+                    key={days}
+                    className="flex justify-between text-sm"
+                    style={{
+                      borderBottom: '1px solid rgba(44,26,14,0.06)',
+                      paddingBottom: '0.5rem',
+                    }}
+                  >
                     <span className="text-brand-text-secondary">{days}</span>
                     <span className="font-medium text-brand-text-primary">{hours}</span>
                   </div>
@@ -97,7 +116,8 @@ export default function ContactPage() {
             </div>
 
             {/* Google Maps embed */}
-            {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== 'placeholder' ? (
+            {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY &&
+            process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== 'placeholder' ? (
               <div className="overflow-hidden rounded-2xl">
                 <iframe
                   src={mapsUrl}
@@ -145,7 +165,9 @@ export default function ContactPage() {
 
             {/* Contact form */}
             <div className="mt-10 card p-6">
-              <h3 className="font-body font-semibold text-brand-brown-deep mb-4">Send us a message</h3>
+              <h3 className="font-body font-semibold text-brand-brown-deep mb-4">
+                Send us a message
+              </h3>
               <form
                 action={`mailto:${email}`}
                 method="get"
@@ -154,7 +176,10 @@ export default function ContactPage() {
               >
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="block text-xs text-brand-text-secondary mb-1.5">
+                    <label
+                      htmlFor="name"
+                      className="block text-xs text-brand-text-secondary mb-1.5"
+                    >
                       Name
                     </label>
                     <input
@@ -167,7 +192,10 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-xs text-brand-text-secondary mb-1.5">
+                    <label
+                      htmlFor="email"
+                      className="block text-xs text-brand-text-secondary mb-1.5"
+                    >
                       Email
                     </label>
                     <input
@@ -181,7 +209,10 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-xs text-brand-text-secondary mb-1.5">
+                  <label
+                    htmlFor="message"
+                    className="block text-xs text-brand-text-secondary mb-1.5"
+                  >
                     Message
                   </label>
                   <textarea
@@ -207,7 +238,17 @@ export default function ContactPage() {
 
 function WhatsappIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
     </svg>
   )

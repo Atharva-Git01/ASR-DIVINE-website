@@ -46,9 +46,7 @@ export const useCartStore = create<CartStore>()(
           )
           if (existing) {
             return {
-              items: state.items.map((i) =>
-                i.id === existing.id ? { ...i, qty: i.qty + 1 } : i
-              ),
+              items: state.items.map((i) => (i.id === existing.id ? { ...i, qty: i.qty + 1 } : i)),
               isOpen: true,
             }
           }
@@ -59,8 +57,7 @@ export const useCartStore = create<CartStore>()(
         })
       },
 
-      removeItem: (id) =>
-        set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
+      removeItem: (id) => set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
 
       updateQty: (id, qty) => {
         if (qty <= 0) {
@@ -74,9 +71,7 @@ export const useCartStore = create<CartStore>()(
 
       toggleGiftWrap: (id) =>
         set((state) => ({
-          items: state.items.map((i) =>
-            i.id === id ? { ...i, giftWrapped: !i.giftWrapped } : i
-          ),
+          items: state.items.map((i) => (i.id === id ? { ...i, giftWrapped: !i.giftWrapped } : i)),
         })),
 
       setGiftMessage: (id, message) =>

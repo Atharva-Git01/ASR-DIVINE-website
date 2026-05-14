@@ -22,20 +22,21 @@ type GalleryImage = {
 // Placeholder images until a gallery CMS is set up
 const PLACEHOLDER_IMAGES: GalleryImage[] = Array.from({ length: 12 }, (_, i) => ({
   _id: `placeholder-${i}`,
-  caption: [
-    'Dark chocolate truffles',
-    'Hazelnut praline close-up',
-    'Wedding favour box',
-    'Celebration fondant cake',
-    'Gift hamper unboxing',
-    'Bean-to-bar process',
-    'Tempering table',
-    'Custom cake design',
-    'Packaging detail',
-    'Seasonal collection',
-    'Studio workspace',
-    'Truffle making',
-  ][i] ?? `Gallery ${i + 1}`,
+  caption:
+    [
+      'Dark chocolate truffles',
+      'Hazelnut praline close-up',
+      'Wedding favour box',
+      'Celebration fondant cake',
+      'Gift hamper unboxing',
+      'Bean-to-bar process',
+      'Tempering table',
+      'Custom cake design',
+      'Packaging detail',
+      'Seasonal collection',
+      'Studio workspace',
+      'Truffle making',
+    ][i] ?? `Gallery ${i + 1}`,
   category: [
     'Chocolates',
     'Chocolates',
@@ -57,7 +58,10 @@ export default function GalleryPage() {
   return (
     <div className="bg-brand-cream min-h-screen">
       {/* Page header */}
-      <div className="bg-brand-white border-b pt-14 pb-12" style={{ borderColor: 'rgba(44,26,14,0.08)' }}>
+      <div
+        className="bg-brand-white border-b pt-14 pb-12"
+        style={{ borderColor: 'rgba(44,26,14,0.08)' }}
+      >
         <div className="mx-auto max-w-7xl px-6 text-center lg:px-12">
           <p className="eyebrow mb-4 justify-center">Lookbook</p>
           <h1 className="font-display text-display-md text-brand-brown-deep italic">

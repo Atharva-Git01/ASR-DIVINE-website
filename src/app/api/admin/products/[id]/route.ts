@@ -8,7 +8,21 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   if (guard) return guard
 
   const body = await request.json()
-  const { name, slug, description, base_price, category_id, is_active, is_eggless, is_seasonal, is_bestseller, stock_count, tags, serving_size, shelf_life } = body
+  const {
+    name,
+    slug,
+    description,
+    base_price,
+    category_id,
+    is_active,
+    is_eggless,
+    is_seasonal,
+    is_bestseller,
+    stock_count,
+    tags,
+    serving_size,
+    shelf_life,
+  } = body
 
   if (!name || !slug || base_price == null) {
     return NextResponse.json({ error: 'name, slug and base_price are required' }, { status: 400 })
@@ -17,11 +31,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   const { error } = await adminDb()
     .from('products')
     .update({
-      name, slug,
+      name,
+      slug,
       description: description || null,
       base_price,
       category_id: category_id || null,
-      is_active, is_eggless, is_seasonal, is_bestseller,
+      is_active,
+      is_eggless,
+      is_seasonal,
+      is_bestseller,
       stock_count: stock_count ?? null,
       tags: tags ?? [],
       serving_size: serving_size || null,

@@ -65,12 +65,8 @@ export async function BestsellersSection() {
 
                   {/* Badges */}
                   <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                    {product.isEggless && (
-                      <span className="badge badge-sage">Eggless</span>
-                    )}
-                    {product.isSeasonal && (
-                      <span className="badge badge-gold">Seasonal</span>
-                    )}
+                    {product.isEggless && <span className="badge badge-sage">Eggless</span>}
+                    {product.isSeasonal && <span className="badge badge-gold">Seasonal</span>}
                   </div>
                 </Link>
 

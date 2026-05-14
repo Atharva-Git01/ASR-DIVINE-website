@@ -52,9 +52,9 @@ describe('publicProcedure', () => {
 
 describe('protectedProcedure', () => {
   it('throws UNAUTHORIZED when userId is null', async () => {
-    await expect(
-      callProcedure('protectedHello', { userId: null, isAdmin: false })
-    ).rejects.toThrow(TRPCError)
+    await expect(callProcedure('protectedHello', { userId: null, isAdmin: false })).rejects.toThrow(
+      TRPCError
+    )
 
     await expect(
       callProcedure('protectedHello', { userId: null, isAdmin: false })

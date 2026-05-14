@@ -28,9 +28,7 @@ export function AddToCartButton({ product }: Props) {
     <button
       onClick={handleAdd}
       className={`w-full btn text-xs transition-all duration-200 ${
-        added
-          ? 'bg-brand-sage text-brand-white border-brand-sage'
-          : 'btn-secondary'
+        added ? 'bg-brand-sage text-brand-white border-brand-sage' : 'btn-secondary'
       }`}
     >
       {added ? 'Added ✓' : 'Add to Cart'}
