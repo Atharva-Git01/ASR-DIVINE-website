@@ -39,7 +39,14 @@ export default function ContactPage() {
   const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'asrdivine2026@gmail.com'
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_BAKERY_PHONE ?? '917070919197'
 
-  const mapsUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}&q=${encodeURIComponent(address)}`
+  const LAT = 18.505658
+  const LNG = 73.858131
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''
+  // Use precise coordinates for the pin; fall back to address query when no API key
+  const mapsUrl = apiKey
+    ? `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${LAT},${LNG}`
+    : `https://maps.google.com/maps?q=${LAT},${LNG}&z=16&output=embed`
+  const mapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${LAT},${LNG}`
 
   return (
     <div className="bg-brand-cream min-h-screen">
@@ -116,29 +123,28 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Google Maps embed */}
-            {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY &&
-            process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== 'placeholder' ? (
-              <div className="overflow-hidden rounded-2xl">
-                <iframe
-                  src={mapsUrl}
-                  width="100%"
-                  height="280"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="ASR Divine location"
-                />
-              </div>
-            ) : (
-              <div
-                className="rounded-2xl h-56 flex items-center justify-center text-brand-text-secondary text-sm"
-                style={{ background: 'linear-gradient(135deg, #5C3D1E20, #C8973A20)' }}
-              >
-                Map will appear when Google Maps API key is configured
-              </div>
-            )}
+            {/* Google Maps embed — works with or without API key */}
+            <div className="overflow-hidden rounded-2xl">
+              <iframe
+                src={mapsUrl}
+                width="100%"
+                height="280"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="ASR Divine location — Shukrwar Peth, Pune"
+              />
+            </div>
+            <a
+              href={mapsDirectionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand-gold hover:underline"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              Get Directions on Google Maps
+            </a>
           </div>
 
           {/* Right — FAQ */}

@@ -28,8 +28,8 @@ export function LocalBusinessSchema({
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 18.5052,
-      longitude: 73.8551,
+      latitude: 18.505658,
+      longitude: 73.858131,
     },
     openingHoursSpecification: [
       {
