@@ -95,7 +95,7 @@ export function HeroSection() {
 
             {/* ── Product image ── save your photo as public/hero.jpg ── */}
             <Image
-              src="/hero.jpg"
+              src="/hero.png"
               alt="ASR Divine handcrafted sweets and chocolates"
               fill
               priority
