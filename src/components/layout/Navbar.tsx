@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useCartStore } from '@/stores/cart'
 
@@ -32,11 +33,28 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center px-6 py-5 lg:px-12">
         {/* Logo */}
-        <Link
-          href="/"
-          className="font-display text-xl italic text-brand-brown-deep tracking-[0.06em] mr-auto lg:mr-0"
-        >
-          ASR Divine
+        <Link href="/" className="mr-auto lg:mr-0 flex-shrink-0" aria-label="ASR Divine — Home">
+          <Image
+            src="/logo.png"
+            alt="ASR Divine"
+            width={148}
+            height={52}
+            className="h-13 w-auto rounded-lg"
+            priority
+            onError={(e) => {
+              // Graceful text fallback while logo.png hasn't been added yet
+              const img = e.currentTarget
+              img.style.display = 'none'
+              const fallback = img.nextElementSibling as HTMLElement | null
+              if (fallback) fallback.style.display = 'block'
+            }}
+          />
+          <span
+            className="hidden font-display text-xl italic text-brand-brown-deep tracking-[0.06em]"
+            aria-hidden="true"
+          >
+            ASR Divine
+          </span>
         </Link>
 
         {/* Desktop nav links */}

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const SHOP_LINKS = [
   { href: '/shop/chocolates', label: 'Chocolates' },
@@ -43,11 +44,14 @@ export function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <Link
-              href="/"
-              className="font-display text-lg italic text-brand-cream tracking-[0.06em]"
-            >
-              ASR Divine
+            <Link href="/" aria-label="ASR Divine — Home" className="inline-block">
+              <Image
+                src="/logo.png"
+                alt="ASR Divine"
+                width={160}
+                height={56}
+                className="h-14 w-auto rounded-lg"
+              />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-brand-cream/60 max-w-xs">
               Infinity Taste Eternal Delight — handcrafted sweets, cakes, and chocolates from Pune.
