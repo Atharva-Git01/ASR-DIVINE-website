@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Contact Us',
   description:
-    'Get in touch with Cocoa & Crumb for orders, custom enquiries, or just to say hello. Visit our studio in Pune or reach us on WhatsApp.',
+    'Get in touch with ASR Divine for orders, custom enquiries, or just to say hello. Visit our studio in Pune or reach us on WhatsApp.',
 }
 
 const FAQ_ITEMS = [
@@ -33,10 +33,11 @@ const OPENING_HOURS = [
 
 export default function ContactPage() {
   const address =
-    process.env.NEXT_PUBLIC_BAKERY_ADDRESS ?? 'Cocoa & Crumb Studio, Pune, Maharashtra 411001'
-  const phone = process.env.NEXT_PUBLIC_BAKERY_PHONE ?? '+91 98765 43210'
-  const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'orders@cocoaandcrumb.in'
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_BAKERY_PHONE ?? '919876543210'
+    process.env.NEXT_PUBLIC_BAKERY_ADDRESS ??
+    '446 Shukratara Building, 3rd Floor, Flat No. 301, Shukrwar Peth, Pune – 411002'
+  const phone = process.env.NEXT_PUBLIC_BAKERY_PHONE ?? '+91 70709 19197'
+  const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'asrdivine2026@gmail.com'
+  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_BAKERY_PHONE ?? '917070919197'
 
   const mapsUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}&q=${encodeURIComponent(address)}`
 
@@ -127,7 +128,7 @@ export default function ContactPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Cocoa & Crumb location"
+                  title="ASR Divine location"
                 />
               </div>
             ) : (

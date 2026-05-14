@@ -44,7 +44,7 @@ const DEMO_ORDERS: Record<
 > = {
   'demo-1': {
     id: 'demo-1',
-    orderNumber: 'CC-20260510-4821',
+    orderNumber: 'ASRD-20260510-4821',
     createdAt: '2026-05-10T14:32:00Z',
     status: 'delivered',
     subtotal: 1598,

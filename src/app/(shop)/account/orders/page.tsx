@@ -49,7 +49,7 @@ export default async function OrdersPage() {
     <div className="space-y-8">
       <div>
         <h2 className="font-body font-semibold text-brand-brown-deep mb-1">My Orders</h2>
-        <p className="text-sm text-brand-text-secondary">Your order history with Cocoa & Crumb.</p>
+        <p className="text-sm text-brand-text-secondary">Your order history with ASR Divine.</p>
       </div>
 
       {list.length === 0 ? (

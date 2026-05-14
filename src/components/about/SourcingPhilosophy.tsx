@@ -1,23 +1,23 @@
 const PILLARS = [
   {
     icon: '🌱',
-    title: 'Single-Origin',
-    body: 'We work directly with small farms in Kerala, Coorg, Madagascar, and Peru — each with traceable, ethical supply chains.',
+    title: 'Quality Ingredients',
+    body: 'We source the finest ingredients from trusted suppliers — a blend of premium local produce from across Maharashtra and carefully selected imported chocolate couvertures.',
   },
   {
     icon: '✋',
     title: 'Small-Batch',
-    body: 'Every product is made in batches of 50 or fewer. No shortcuts, no preservatives, no compromises on quality.',
+    body: 'Every product is made in small batches. No shortcuts, no preservatives, no compromises on quality or flavour.',
   },
   {
     icon: '🥚',
     title: 'Eggless Options',
-    body: "Most of our products are available eggless without substitutes — because great chocolate doesn't need eggs.",
+    body: 'Most of our products are available eggless — because great sweets and chocolates should be enjoyed by everyone.',
   },
   {
-    icon: '📦',
-    title: 'Sustainable Packaging',
-    body: 'All packaging is either recyclable, biodegradable, or reusable. We ship with minimal plastic.',
+    icon: '🎁',
+    title: 'Gifting First',
+    body: 'Every ingredient is chosen for quality, taste, and the love it brings to every creation — from single boxes to bespoke corporate hampers.',
   },
 ]
 
@@ -31,8 +31,9 @@ export function SourcingPhilosophy() {
             Principles before profit
           </h2>
           <p className="mt-4 text-base text-brand-text-secondary max-w-xl mx-auto leading-relaxed">
-            Our sourcing philosophy is simple: know where everything comes from, and make sure
-            everyone in the chain is treated fairly.
+            We source the finest ingredients from trusted suppliers — a curated mix of premium local
+            and imported ingredients, chosen for quality, taste, and the love it brings to every
+            creation.
           </p>
         </div>
 

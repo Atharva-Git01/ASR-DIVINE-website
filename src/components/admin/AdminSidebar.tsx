@@ -26,7 +26,7 @@ export function AdminSidebar() {
       {/* Logo */}
       <div className="px-6 py-5 border-b" style={{ borderColor: 'rgba(200,151,58,0.12)' }}>
         <Link href="/admin" className="block">
-          <span className="font-display text-lg italic text-brand-gold">Cocoa & Crumb</span>
+          <span className="font-display text-lg italic text-brand-gold">ASR Divine</span>
           <span className="block text-[10px] text-brand-gold/40 tracking-widest uppercase mt-0.5">
             Admin
           </span>

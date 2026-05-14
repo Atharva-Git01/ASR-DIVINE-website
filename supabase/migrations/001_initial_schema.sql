@@ -1,5 +1,5 @@
 -- ============================================================
--- Cocoa & Crumb — Initial Schema
+-- ASR Divine — Initial Schema
 -- ============================================================
 -- Run via: supabase db push  OR  supabase migration up
 -- ============================================================
@@ -242,7 +242,7 @@ returns text language plpgsql as $$
 declare
   v_number text;
 begin
-  v_number := 'CC-' || to_char(now(), 'YYYYMMDD') || '-' ||
+  v_number := 'ASRD-' || to_char(now(), 'YYYYMMDD') || '-' ||
               lpad(floor(random() * 9000 + 1000)::text, 4, '0');
   return v_number;
 end;

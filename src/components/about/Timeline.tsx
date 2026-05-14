@@ -1,33 +1,23 @@
 const MILESTONES = [
   {
-    year: '2019',
-    title: 'The First Batch',
-    body: 'A box of handmade truffles gifted at a wedding. Fifty orders arrived by Monday.',
-  },
-  {
-    year: '2020',
-    title: 'Cottage Kitchen',
-    body: 'Lockdown turned the home kitchen into a full-time production unit. First 100-order month.',
-  },
-  {
-    year: '2021',
-    title: 'Studio Opens',
-    body: 'Moved to a dedicated studio in Pune with a tempering room and custom gifting table.',
-  },
-  {
-    year: '2022',
-    title: 'Bean-to-Bar',
-    body: 'Launched the first single-origin Kerala dark chocolate bar — now our bestselling product.',
-  },
-  {
     year: '2023',
-    title: 'Custom Program',
-    body: 'Introduced fully bespoke gifting hampers and custom wedding favour collections.',
+    title: 'The First Batch',
+    body: 'Started experimenting with homemade chocolates and baked goods for family and friends. The response was overwhelming.',
   },
   {
     year: '2024',
-    title: 'Going Digital',
-    body: 'Launching cocoaandcrumb.in to bring our studio to doorsteps across India.',
+    title: 'Learning & Growing',
+    body: 'Enrolled in professional baking and chocolate-making courses. Completed internships to master the craft.',
+  },
+  {
+    year: 'Early 2025',
+    title: 'ASR Divine is Born',
+    body: 'Launched ASR Divine officially from Shukrwar Peth, Pune, with a core menu of handcrafted sweets, cakes, and chocolates.',
+  },
+  {
+    year: '2025',
+    title: 'First 50 Customers',
+    body: 'Crossed 50 happy customers through word of mouth, WhatsApp referrals, and custom gifting orders.',
   },
 ]
 

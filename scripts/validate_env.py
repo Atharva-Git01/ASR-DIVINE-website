@@ -80,7 +80,7 @@ def main() -> None:
     else:
         console.print(f"\n[yellow]⚠  {args.env_file} not found — checking shell environment only[/yellow]")
 
-    console.print("\n[bold cyan]🍫 Cocoa & Crumb — Environment Validation[/bold cyan]\n")
+    console.print("\n[bold cyan]🍫 ASR Divine — Environment Validation[/bold cyan]\n")
 
     table = Table(show_header=True, header_style="bold magenta")
     table.add_column("Variable", min_width=38)

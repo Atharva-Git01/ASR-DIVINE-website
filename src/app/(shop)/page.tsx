@@ -4,15 +4,15 @@ import { CategoryStrip } from '@/components/home/CategoryStrip'
 import { BestsellersSection } from '@/components/home/BestsellersSection'
 
 export const metadata: Metadata = {
-  title: 'Cocoa & Crumb — Artisan Chocolates & Baked Goods, Pune',
+  title: 'ASR Divine — Infinity Taste Eternal Delight',
   description:
-    'Handcrafted bean-to-bar chocolates, celebration cakes, and curated gift hampers made in Pune. Order online with same-day delivery.',
+    'Discover handcrafted sweets, chocolates, and celebration cakes from ASR Divine, Pune.',
   openGraph: {
-    title: 'Cocoa & Crumb — Artisan Chocolates & Baked Goods, Pune',
+    title: 'ASR Divine — Infinity Taste Eternal Delight',
     description:
-      'Handcrafted bean-to-bar chocolates, celebration cakes, and curated gift hampers made in Pune.',
-    url: 'https://cocoaandcrumb.in',
-    siteName: 'Cocoa & Crumb',
+      'Discover handcrafted sweets, chocolates, and celebration cakes from ASR Divine, Pune.',
+    url: 'https://asrdivine.in',
+    siteName: 'ASR Divine',
     type: 'website',
   },
 }

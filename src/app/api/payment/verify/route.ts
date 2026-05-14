@@ -32,7 +32,7 @@ async function generateOrderNumber(): Promise<string> {
   const { data } = await supabase.rpc('generate_order_number')
   return (
     (data as string | null) ??
-    `CC-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Date.now()
+    `ASRD-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Date.now()
       .toString()
       .slice(-5)}`
   )

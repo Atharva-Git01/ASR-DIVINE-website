@@ -107,7 +107,7 @@ export function PaymentStep({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
         amount: Math.round(serverAmount * 100),
         currency,
-        name: 'Cocoa & Crumb',
+        name: 'ASR Divine',
         description: `Order for ${items.length} item${items.length > 1 ? 's' : ''}`,
         order_id: razorpayOrderId,
         prefill: {

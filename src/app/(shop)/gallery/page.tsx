@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'A lookbook of our handcrafted chocolates, celebration cakes, and gifting collections — made in our Pune studio.',
   openGraph: {
-    title: 'Gallery | Cocoa & Crumb',
+    title: 'Gallery | ASR Divine',
     description: 'A lookbook of handcrafted chocolates and baked goods from our Pune studio.',
   },
 }

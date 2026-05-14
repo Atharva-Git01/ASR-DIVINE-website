@@ -21,8 +21,9 @@ export function AboutHero() {
           shared with love.
         </h1>
         <p className="mt-6 text-base text-brand-cream/70 max-w-2xl mx-auto leading-relaxed">
-          What started as a home kitchen experiment in Pune has grown into a small-batch studio
-          dedicated to the craft of fine chocolate and artisan baking.
+          Infinity Taste Eternal Delight — what started as a home kitchen passion in Pune has grown
+          into ASR Divine, Pune&apos;s beloved home bakery dedicated to handcrafted sweets, cakes,
+          and chocolates.
         </p>
       </div>
     </section>

@@ -96,7 +96,7 @@ def make_order(product_ids: list[str], idx: int) -> tuple[dict, list[dict]]:
 
     order = {
         "id": order_id,
-        "order_number": f"CC-{created.strftime('%Y%m%d')}-{(1000 + idx):05d}",
+        "order_number": f"ASRD-{created.strftime('%Y%m%d')}-{(1000 + idx):05d}",
         "status": status,
         "payment_status": "paid" if status not in ("pending", "cancelled") else "pending",
         "fulfillment_type": random.choice(["delivery", "pickup"]),
@@ -141,7 +141,7 @@ def make_order(product_ids: list[str], idx: int) -> tuple[dict, list[dict]]:
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Seed the Cocoa & Crumb database with test data.")
+    parser = argparse.ArgumentParser(description="Seed the ASR Divine database with test data.")
     parser.add_argument("--products", type=int, default=20, help="Number of products to seed (default: 20)")
     parser.add_argument("--orders",   type=int, default=15, help="Number of orders to seed (default: 15)")
     parser.add_argument("--clear", action="store_true", help="Clear existing seed data before inserting")
@@ -149,7 +149,7 @@ def main() -> None:
 
     db = get_client()
 
-    console.print("\n[bold cyan]🍫 Cocoa & Crumb — Database Seeder[/bold cyan]")
+    console.print("\n[bold cyan]🍫 ASR Divine — Database Seeder[/bold cyan]")
     console.print(f"   Products: {args.products} | Orders: {args.orders} | Clear first: {args.clear}\n")
 
     with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
@@ -157,7 +157,7 @@ def main() -> None:
         if args.clear:
             t = progress.add_task("Clearing old seed data…", total=None)
             db.from_("order_items").delete().like("order_id", "%-%-%-%-%").execute()
-            db.from_("orders").delete().like("order_number", "CC-%-0%").execute()
+            db.from_("orders").delete().like("order_number", "ASRD-%-0%").execute()
             progress.update(t, description="Old data cleared ✓")
 
         # Categories

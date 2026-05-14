@@ -56,7 +56,7 @@ async function sendBakeryEmail(orderId: string, orderNumber: string) {
   const resendKey = process.env.RESEND_API_KEY ?? ''
   if (!resendKey || resendKey === 're_placeholder') return
 
-  const bakeryEmail = process.env.BAKERY_NOTIFY_EMAIL ?? 'orders@cocoaandcrumb.in'
+  const bakeryEmail = process.env.BAKERY_NOTIFY_EMAIL ?? 'asrdivine2026@gmail.com'
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -65,7 +65,7 @@ async function sendBakeryEmail(orderId: string, orderNumber: string) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: process.env.EMAIL_FROM ?? 'orders@cocoaandcrumb.in',
+      from: process.env.EMAIL_FROM ?? 'orders@asrdivine.in',
       to: [bakeryEmail],
       subject: `New order ${orderNumber}`,
       html: `<p>Order <strong>${orderNumber}</strong> (ID: ${orderId}) has been placed and payment confirmed.</p>
@@ -115,7 +115,7 @@ async function sendCustomerReceipt(
         </tr>
       </table>
       <p style="font-size:13px;color:#888">We'll WhatsApp you when your order is ready. Questions? Reply to this email.</p>
-      <p style="font-size:13px;color:#888">— The Cocoa & Crumb team</p>
+      <p style="font-size:13px;color:#888">— The ASR Divine team</p>
     </div>`
 
   const res = await fetch('https://api.resend.com/emails', {
@@ -125,9 +125,9 @@ async function sendCustomerReceipt(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: process.env.EMAIL_FROM ?? 'orders@cocoaandcrumb.in',
+      from: process.env.EMAIL_FROM ?? 'orders@asrdivine.in',
       to: [customerEmail],
-      subject: `Your Cocoa & Crumb order ${orderNumber} is confirmed 🍫`,
+      subject: `Your ASR Divine order ${orderNumber} is confirmed`,
       html,
     }),
   })

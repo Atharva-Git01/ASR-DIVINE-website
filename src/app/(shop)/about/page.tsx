@@ -7,11 +7,11 @@ import { Timeline } from '@/components/about/Timeline'
 export const metadata: Metadata = {
   title: 'Our Story',
   description:
-    'From a love of fine chocolate to a Pune studio — the story behind Cocoa & Crumb, our sourcing philosophy, and the people who make it all.',
+    'From a passion for baking to a Pune studio — the story behind ASR Divine, our sourcing philosophy, and the people who make it all.',
   openGraph: {
-    title: 'Our Story | Cocoa & Crumb',
+    title: 'Our Story | ASR Divine',
     description:
-      'The story behind Cocoa & Crumb — handcrafted chocolates and baked goods from our studio in Pune.',
+      'The story behind ASR Divine — handcrafted sweets, cakes, and chocolates from our studio in Pune.',
   },
 }
 

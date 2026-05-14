@@ -52,7 +52,7 @@ def main() -> None:
 
     db = get_client()
 
-    console.print("\n[bold cyan]🍫 Cocoa & Crumb — Order Export[/bold cyan]")
+    console.print("\n[bold cyan]🍫 ASR Divine — Order Export[/bold cyan]")
 
     query = db.from_("orders").select(
         "id, order_number, status, payment_status, fulfillment_type, "

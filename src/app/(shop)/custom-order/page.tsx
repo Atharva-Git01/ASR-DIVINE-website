@@ -4,7 +4,7 @@ import { CustomOrderForm } from '@/components/custom-order/CustomOrderForm'
 export const metadata: Metadata = {
   title: 'Custom Order',
   description:
-    'Request a custom celebration cake, personalised chocolate box, or bespoke gifting hamper from Cocoa & Crumb.',
+    'Request a custom celebration cake, personalised chocolate box, or bespoke gifting hamper from ASR Divine.',
 }
 
 export default function CustomOrderPage() {

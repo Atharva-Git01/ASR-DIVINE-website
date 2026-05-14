@@ -5,17 +5,17 @@ type Props = {
 }
 
 export function LocalBusinessSchema({
-  address = 'Cocoa & Crumb Studio, Pune, Maharashtra 411001',
-  phone = '+91 98765 43210',
-  email = 'orders@cocoaandcrumb.in',
+  address = '446 Shukratara Building, 3rd Floor, Flat No. 301, Shukrwar Peth, Pune – 411002',
+  phone = '+91 70709 19197',
+  email = 'asrdivine2026@gmail.com',
 }: Props) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': ['Bakery', 'LocalBusiness'],
-    name: 'Cocoa & Crumb',
+    name: 'ASR Divine',
     description:
-      'Artisan chocolatier and bakery in Pune, specialising in bean-to-bar single-origin chocolates, celebration cakes, and gifting hampers.',
-    url: 'https://cocoaandcrumb.in',
+      'Handcrafted sweets, cakes, chocolates & gifting experiences in Pune. 100% handcrafted. Eggless options available.',
+    url: 'https://asrdivine.in',
     telephone: phone,
     email,
     address: {
@@ -23,13 +23,13 @@ export function LocalBusinessSchema({
       streetAddress: address,
       addressLocality: 'Pune',
       addressRegion: 'Maharashtra',
-      postalCode: '411001',
+      postalCode: '411002',
       addressCountry: 'IN',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 18.5204,
-      longitude: 73.8567,
+      latitude: 18.5052,
+      longitude: 73.8551,
     },
     openingHoursSpecification: [
       {
@@ -47,8 +47,12 @@ export function LocalBusinessSchema({
     ],
     servesCuisine: 'Confectionery',
     priceRange: '₹₹',
-    image: 'https://cocoaandcrumb.in/og-image.jpg',
-    sameAs: ['https://www.instagram.com/cocoaandcrumb'],
+    image: 'https://asrdivine.in/og-image.jpg',
+    sameAs: [
+      'https://www.instagram.com/asr_divine',
+      'https://www.facebook.com/share/17hvB5JEBx/',
+      'https://x.com/ASRDivine2026',
+    ],
   }
 
   return (

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { adminDb } from '@/lib/supabase/admin'
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://cocoaandcrumb.in'
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://asrdivine.in'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch product and category slugs from Supabase (no longer from Sanity — B-1)

@@ -46,9 +46,7 @@ export function SignInForm() {
     <div className="w-full max-w-md">
       <div className="card p-8">
         <h1 className="font-display text-2xl italic text-brand-brown-deep mb-1">Welcome back</h1>
-        <p className="text-sm text-brand-text-secondary mb-6">
-          Sign in to your Cocoa & Crumb account
-        </p>
+        <p className="text-sm text-brand-text-secondary mb-6">Sign in to your ASR Divine account</p>
 
         {/* Google OAuth */}
         <button

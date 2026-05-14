@@ -29,9 +29,11 @@ const DEFAULT_HOURS = [
 
 export function Footer() {
   const address = process.env.NEXT_PUBLIC_BAKERY_ADDRESS ?? 'Pune, Maharashtra, India'
-  const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'orders@cocoaandcrumb.in'
+  const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'asrdivine2026@gmail.com'
   const phone = process.env.NEXT_PUBLIC_BAKERY_PHONE ?? ''
   const instagram = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? ''
+  const facebook = process.env.NEXT_PUBLIC_FACEBOOK_URL ?? ''
+  const twitter = process.env.NEXT_PUBLIC_TWITTER_URL ?? ''
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_BAKERY_PHONE ?? ''
 
   return (
@@ -45,11 +47,10 @@ export function Footer() {
               href="/"
               className="font-display text-lg italic text-brand-cream tracking-[0.06em]"
             >
-              Cocoa <span className="text-brand-gold not-italic">&</span> Crumb
+              ASR Divine
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-brand-cream/60 max-w-xs">
-              Artisan chocolates & baked goods handcrafted in Pune. Made with love, delivered with
-              care.
+              Infinity Taste Eternal Delight — handcrafted sweets, cakes, and chocolates from Pune.
             </p>
 
             {/* Social icons */}
@@ -63,6 +64,28 @@ export function Footer() {
                   className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-cream/20 text-brand-cream/60 transition-colors hover:border-brand-gold hover:text-brand-gold"
                 >
                   <InstagramIcon />
+                </a>
+              )}
+              {facebook && (
+                <a
+                  href={facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-cream/20 text-brand-cream/60 transition-colors hover:border-brand-gold hover:text-brand-gold"
+                >
+                  <FacebookIcon />
+                </a>
+              )}
+              {twitter && (
+                <a
+                  href={twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter / X"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-cream/20 text-brand-cream/60 transition-colors hover:border-brand-gold hover:text-brand-gold"
+                >
+                  <TwitterIcon />
                 </a>
               )}
               {whatsapp && (
@@ -159,7 +182,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-brand-cream/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-brand-cream/40 sm:flex-row lg:px-12">
-          <p>© {new Date().getFullYear()} Cocoa & Crumb. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} ASR Divine. All rights reserved.</p>
           <nav aria-label="Legal links">
             <ul className="flex items-center gap-4 list-none">
               {LEGAL_LINKS.map(({ href, label }) => (
@@ -195,6 +218,42 @@ function InstagramIcon() {
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+function FacebookIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  )
+}
+
+function TwitterIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 4l16 16M4 20L20 4" />
     </svg>
   )
 }

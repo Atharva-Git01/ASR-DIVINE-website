@@ -23,12 +23,12 @@ export function FounderStory() {
               </div>
               <div className="absolute bottom-8 left-8 right-8">
                 <p className="font-display text-2xl italic text-brand-cream/20 leading-tight">
-                  &ldquo;Chocolate isn&apos;t just food.
+                  &ldquo;Every creation carries a piece of my heart.
                   <br />
-                  It&apos;s a memory in every bite.&rdquo;
+                  That&apos;s the ASR Divine promise.&rdquo;
                 </p>
                 <p className="mt-3 text-xs text-brand-cream/30 tracking-widest uppercase">
-                  — Founder, Cocoa & Crumb
+                  — Founder, ASR Divine
                 </p>
               </div>
             </div>
@@ -40,24 +40,24 @@ export function FounderStory() {
             <h2 className="font-display text-display-md text-brand-brown-deep italic leading-[1.1]">
               A kitchen, a dream,
               <br />
-              and really good cacao.
+              and a passion for perfection.
             </h2>
 
             <div className="mt-8 space-y-5 text-base text-brand-text-secondary leading-relaxed">
               <p>
-                It began the way most great things do — out of necessity and obsession. Our founder
-                spent years working in finance, but every weekend was spent at the stove,
-                experimenting with single-origin beans sourced from small farms across India,
-                Madagascar, and Peru.
+                It began the way most beautiful things do — at home. Our founder, a dedicated
+                homemaker with an unstoppable love for baking, spent years perfecting recipes in her
+                own kitchen, driven by the joy of seeing loved ones savour every bite.
               </p>
               <p>
-                The turning point came when a hand-gifted box of truffles at a friend&apos;s wedding
-                led to fifty orders the following Monday. That was our sign.
+                That passion led her to enrol in professional baking classes and internships,
+                learning the craft from the inside out — mastering chocolate tempering, custom cake
+                design, and the art of gifting. ASR Divine was born from that journey.
               </p>
               <p>
-                Today, Cocoa &amp; Crumb operates from a dedicated studio in Pune, serving over two
-                hundred families each month with chocolates, custom celebration cakes, and curated
-                gifting experiences — all made entirely by hand, one batch at a time.
+                Today, ASR Divine serves customers across Pune from a dedicated studio in Shukrwar
+                Peth, crafting chocolates, celebration cakes, and curated gifting experiences — all
+                made entirely by hand, one batch at a time.
               </p>
             </div>
 
@@ -67,8 +67,8 @@ export function FounderStory() {
               style={{ borderColor: 'rgba(44,26,14,0.08)' }}
             >
               {[
-                { value: '200+', label: 'Families served monthly' },
-                { value: '12+', label: 'Origin chocolates' },
+                { value: '50+', label: 'Customers served' },
+                { value: '20+', label: 'Unique products' },
                 { value: '100%', label: 'Handcrafted' },
               ].map(({ value, label }) => (
                 <div key={label}>

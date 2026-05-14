@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const REVIEW = {
-  quote: "The single-origin dark chocolate truffle is unlike anything I've had in India.",
+  quote: 'Every bite is pure love and craft. The chocolate cake was absolutely divine!',
   author: 'Priya S.',
   rating: 5,
 }
@@ -21,7 +21,7 @@ export function HeroSection() {
             transition={{ duration: 0.5 }}
             className="eyebrow mb-6"
           >
-            Artisan Chocolates & Baked Goods · Pune
+            Artisan Sweets & Baked Goods · Pune
           </motion.p>
 
           <motion.h1
@@ -68,15 +68,17 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2"
           >
-            {['100% Handcrafted', 'Eggless Options', 'Same-day Delivery'].map((badge) => (
-              <span
-                key={badge}
-                className="flex items-center gap-1.5 text-xs text-brand-text-secondary"
-              >
-                <span className="h-1 w-1 rounded-full bg-brand-gold" />
-                {badge}
-              </span>
-            ))}
+            {['100% Handcrafted', 'Eggless Options Available', 'Custom Orders Welcome'].map(
+              (badge) => (
+                <span
+                  key={badge}
+                  className="flex items-center gap-1.5 text-xs text-brand-text-secondary"
+                >
+                  <span className="h-1 w-1 rounded-full bg-brand-gold" />
+                  {badge}
+                </span>
+              )
+            )}
           </motion.div>
         </div>
 
@@ -106,10 +108,10 @@ export function HeroSection() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
                 <p className="font-display text-[5rem] italic text-brand-cream/15 leading-none select-none">
-                  C&amp;C
+                  ASR
                 </p>
                 <p className="mt-2 text-xs uppercase tracking-[0.2em] text-brand-cream/30">
-                  Est. 2024 · Pune
+                  Est. 2025 · Pune
                 </p>
               </div>
             </div>

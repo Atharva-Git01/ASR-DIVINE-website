@@ -31,14 +31,14 @@ ENDPOINTS = [
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Health-check Cocoa & Crumb endpoints.")
+    parser = argparse.ArgumentParser(description="Health-check ASR Divine endpoints.")
     parser.add_argument("--base-url", default="http://localhost:3000",
                         help="Base URL of the running app (default: http://localhost:3000)")
     parser.add_argument("--timeout", type=float, default=10.0,
                         help="Request timeout in seconds (default: 10)")
     args = parser.parse_args()
 
-    console.print(f"\n[bold cyan]🍫 Cocoa & Crumb — Health Check[/bold cyan]")
+    console.print(f"\n[bold cyan]🍫 ASR Divine — Health Check[/bold cyan]")
     console.print(f"   Base URL: {args.base_url}\n")
 
     table = Table(show_header=True, header_style="bold magenta")

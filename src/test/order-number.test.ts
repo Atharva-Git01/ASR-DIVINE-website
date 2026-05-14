@@ -4,26 +4,26 @@ import { describe, it, expect } from 'vitest'
 
 /**
  * Fallback JS generator — used when the DB is unavailable.
- * Format: CC-YYYYMMDD-NNNNN
+ * Format: ASRD-YYYYMMDD-NNNNN (was CC-YYYYMMDD-NNNNN)
  */
 function generateOrderNumberFallback(): string {
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '')
   const seq = Date.now().toString().slice(-5)
-  return `CC-${date}-${seq}`
+  return `ASRD-${date}-${seq}`
 }
 
-const ORDER_NUMBER_PATTERN = /^CC-\d{8}-\d{5}$/
+const ORDER_NUMBER_PATTERN = /^ASRD-\d{8}-\d{5}$/
 
 // ── Tests ───────────────────────────────────────────────────────────────────
 
 describe('Order number format', () => {
-  it('matches the CC-YYYYMMDD-NNNNN format', () => {
+  it('matches the ASRD-YYYYMMDD-NNNNN format', () => {
     const num = generateOrderNumberFallback()
     expect(num).toMatch(ORDER_NUMBER_PATTERN)
   })
 
-  it('starts with CC-', () => {
-    expect(generateOrderNumberFallback().startsWith('CC-')).toBe(true)
+  it('starts with ASRD-', () => {
+    expect(generateOrderNumberFallback().startsWith('ASRD-')).toBe(true)
   })
 
   it('date segment is today in YYYYMMDD format', () => {
@@ -51,7 +51,7 @@ describe('Sequence-based order numbers uniqueness (simulated)', () => {
     return function generateSequenceNumber(): string {
       const date = new Date().toISOString().slice(0, 10).replace(/-/g, '')
       const seq = String(counter++).padStart(5, '0')
-      return `CC-${date}-${seq}`
+      return `ASRD-${date}-${seq}`
     }
   }
 

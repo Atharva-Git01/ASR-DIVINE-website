@@ -16,9 +16,9 @@ export async function generateMetadata({
   const imageUrl = product.images?.[0]?.url
   return {
     title: product.name,
-    description: product.description ?? `${product.name} — handcrafted by Cocoa & Crumb, Pune.`,
+    description: product.description ?? `${product.name} — handcrafted by ASR Divine, Pune.`,
     openGraph: {
-      title: `${product.name} | Cocoa & Crumb`,
+      title: `${product.name} | ASR Divine`,
       description: product.description,
       images: imageUrl ? [{ url: imageUrl, width: 800, height: 800, alt: product.name }] : [],
     },

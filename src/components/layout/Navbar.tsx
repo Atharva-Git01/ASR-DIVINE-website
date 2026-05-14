@@ -36,7 +36,7 @@ export function Navbar() {
           href="/"
           className="font-display text-xl italic text-brand-brown-deep tracking-[0.06em] mr-auto lg:mr-0"
         >
-          Cocoa <span className="text-brand-gold not-italic">&</span> Crumb
+          ASR Divine
         </Link>
 
         {/* Desktop nav links */}

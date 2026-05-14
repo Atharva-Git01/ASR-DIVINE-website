@@ -20,34 +20,34 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Cocoa & Crumb — Artisan Bakery & Chocolates, Pune',
-    template: '%s | Cocoa & Crumb',
+    default: 'ASR Divine — Infinity Taste Eternal Delight',
+    template: '%s | ASR Divine',
   },
   description:
-    'Small-batch artisan baking and premium handcrafted chocolates in Pune. Custom cakes, chocolate gift boxes, fresh pastries — made with love every day.',
-  metadataBase: new URL('https://cocoaandcrumb.in'),
+    'Handcrafted sweets, cakes, chocolates & gifting experiences in Pune. 100% handcrafted. Eggless options available.',
+  metadataBase: new URL('https://asrdivine.in'),
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://cocoaandcrumb.in',
-    siteName: 'Cocoa & Crumb',
-    title: 'Cocoa & Crumb — Artisan Bakery & Chocolates, Pune',
+    url: 'https://asrdivine.in',
+    siteName: 'ASR Divine',
+    title: 'ASR Divine',
     description:
-      'Handcrafted chocolates, custom cakes, and fresh pastries from our artisan kitchen in Pune.',
+      'Handcrafted sweets, cakes, chocolates & gifting experiences in Pune. 100% handcrafted. Eggless options available.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Cocoa & Crumb artisan bakery and chocolates',
+        alt: 'ASR Divine handcrafted sweets and baked goods',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cocoa & Crumb — Artisan Bakery & Chocolates, Pune',
+    title: 'ASR Divine',
     description:
-      'Handcrafted chocolates, custom cakes, and fresh pastries from our artisan kitchen in Pune.',
+      'Handcrafted sweets, cakes, chocolates & gifting experiences in Pune. 100% handcrafted. Eggless options available.',
     images: ['/og-image.jpg'],
   },
   robots: {

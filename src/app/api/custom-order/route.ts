@@ -43,8 +43,8 @@ export async function POST(request: Request) {
     method: 'POST',
     headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.EMAIL_FROM ?? 'orders@cocoaandcrumb.in',
-      to: ['orders@cocoaandcrumb.in'],
+      from: process.env.EMAIL_FROM ?? 'orders@asrdivine.in',
+      to: [process.env.BAKERY_NOTIFY_EMAIL ?? 'asrdivine2026@gmail.com'],
       reply_to: fields.email,
       subject: `Custom order request from ${fields.name} — ${fields.orderType} for ${fields.occasion || 'an occasion'}`,
       html,
@@ -61,13 +61,13 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from: process.env.EMAIL_FROM ?? 'orders@cocoaandcrumb.in',
+        from: process.env.EMAIL_FROM ?? 'orders@asrdivine.in',
         to: [fields.email],
-        subject: 'We received your custom order request — Cocoa & Crumb',
+        subject: 'We received your custom order request — ASR Divine',
         html: `<p>Hi ${fields.name},</p>
                <p>Thank you for your custom order request! We've received your enquiry and will get back to you within 24 hours with a quote and availability.</p>
-               <p>In the meantime, feel free to reach us on WhatsApp at +91 98765 43210.</p>
-               <p>Warm regards,<br/>The Cocoa & Crumb team</p>`,
+               <p>In the meantime, feel free to reach us on WhatsApp at +91 70709 19197.</p>
+               <p>Warm regards,<br/>The ASR Divine team</p>`,
       }),
     }).catch(() => null)
   }
