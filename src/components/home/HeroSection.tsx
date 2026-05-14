@@ -107,8 +107,8 @@ export function HeroSection() {
             {/* Center emblem */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <p className="font-display text-[5rem] italic text-brand-cream/15 leading-none select-none">
-                  ASR
+                <p className="font-display text-[2.75rem] italic text-brand-cream/15 leading-none select-none">
+                  ASR Divine
                 </p>
                 <p className="mt-2 text-xs uppercase tracking-[0.2em] text-brand-cream/30">
                   Est. 2025 · Pune
