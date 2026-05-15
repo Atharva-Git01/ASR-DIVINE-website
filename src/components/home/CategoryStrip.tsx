@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { adminDb } from '@/lib/supabase/admin'
+import { resolvePublicImage } from '@/lib/resolve-asset'
 
 type Category = {
   id: string
@@ -7,7 +9,7 @@ type Category = {
   slug: string
 }
 
-// Gradient fallbacks for when categories have no images yet
+// Gradient fallbacks shown behind / when image hasn't loaded
 const CATEGORY_GRADIENTS: Record<number, string> = {
   0: 'from-[#5C3D1E] to-[#3D1F0D]',
   1: 'from-[#C8973A] to-[#8B5E3C]',
@@ -16,6 +18,7 @@ const CATEGORY_GRADIENTS: Record<number, string> = {
   4: 'from-[#8B5E3C] to-[#2C1A0E]',
   5: 'from-[#E8CDB5] to-[#C8973A]',
 }
+
 
 const FALLBACK_CATEGORIES: Category[] = [
   { id: '1', name: 'Chocolates', slug: 'chocolates' },
@@ -50,6 +53,7 @@ export async function CategoryStrip() {
           {display.map((cat, i) => {
             const href = `/shop?category=${cat.slug}`
             const gradient = CATEGORY_GRADIENTS[i % 6] ?? CATEGORY_GRADIENTS[0]
+            const imgSrc = resolvePublicImage('categories', cat.slug)
 
             return (
               <Link
@@ -57,11 +61,22 @@ export async function CategoryStrip() {
                 href={href}
                 className="group relative overflow-hidden rounded-2xl aspect-[3/4] flex flex-col justify-end p-4 transition-transform duration-200 hover:-translate-y-1 hover:shadow-card-hover"
               >
-                {/* Background gradient */}
+                {/* Gradient fallback (always behind image) */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
 
-                {/* Scrim overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-brown-deep/70 via-transparent to-transparent" />
+                {/* Category image */}
+                {imgSrc && (
+                  <Image
+                    src={imgSrc}
+                    alt={cat.name}
+                    fill
+                    className="object-cover object-center scale-105 transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                  />
+                )}
+
+                {/* Bottom scrim so label stays readable */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-brown-deep/80 via-brand-brown-deep/20 to-transparent" />
 
                 {/* Label */}
                 <span className="relative z-10 text-sm font-medium text-brand-cream leading-snug">

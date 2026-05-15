@@ -1,6 +1,23 @@
+import Image from 'next/image'
+import { resolvePublicRootImage } from '@/lib/resolve-asset'
+
 export function AboutHero() {
+  const imgSrc = resolvePublicRootImage('about-hero')
+
   return (
     <section className="relative overflow-hidden bg-brand-choc py-24 lg:py-32">
+      {/* Background image */}
+      {imgSrc && (
+        <Image
+          src={imgSrc}
+          alt="ASR Divine Our Story"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+      )}
+
       {/* Subtle grid texture */}
       <div
         className="absolute inset-0 opacity-[0.07]"

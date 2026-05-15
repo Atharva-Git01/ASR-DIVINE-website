@@ -28,7 +28,11 @@ const DEFAULT_HOURS = [
   { days: 'Sat – Sun', hours: '10am – 8pm' },
 ]
 
-export function Footer() {
+type FooterProps = {
+  logoSrc?: string | null
+}
+
+export function Footer({ logoSrc }: FooterProps) {
   const address = process.env.NEXT_PUBLIC_BAKERY_ADDRESS ?? 'Pune, Maharashtra, India'
   const email = process.env.NEXT_PUBLIC_BAKERY_EMAIL ?? 'asrdivine2026@gmail.com'
   const phone = process.env.NEXT_PUBLIC_BAKERY_PHONE ?? ''
@@ -45,17 +49,20 @@ export function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" aria-label="ASR Divine — Home" className="inline-block">
-              <Image
-                src="/logo.png"
-                alt="ASR Divine"
-                width={160}
-                height={56}
-                className="h-14 w-auto rounded-lg"
-              />
+              {logoSrc ? (
+                <Image
+                  src={logoSrc}
+                  alt="ASR Divine"
+                  width={280}
+                  height={180}
+                  className="w-[280px] h-auto rounded-lg"
+                />
+              ) : (
+                <span className="font-display text-xl italic text-brand-cream tracking-[0.06em]">
+                  ASR Divine
+                </span>
+              )}
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-brand-cream/60 max-w-xs">
-              Infinity Taste Eternal Delight — handcrafted sweets, cakes, and chocolates from Pune.
-            </p>
 
             {/* Social icons */}
             <div className="mt-6 flex items-center gap-3">

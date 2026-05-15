@@ -142,7 +142,19 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand-gold hover:underline"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polygon points="3 11 22 2 13 21 11 13 3 11" />
+              </svg>
               Get Directions on Google Maps
             </a>
           </div>

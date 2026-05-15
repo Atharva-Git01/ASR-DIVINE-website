@@ -71,7 +71,7 @@ const STEP_LABELS = {
   confirm: 'Contact',
 }
 
-export function CustomOrderForm() {
+export function CustomOrderForm({ onSubmitted }: { onSubmitted?: () => void }) {
   const [step, setStep] = useState<Step>('type')
   const [form, setForm] = useState<FormData>(EMPTY)
   const [submitting, setSubmitting] = useState(false)
@@ -104,6 +104,7 @@ export function CustomOrderForm() {
 
     setSubmitting(false)
     setSubmitted(true)
+    onSubmitted?.()
   }
 
   if (submitted) {
