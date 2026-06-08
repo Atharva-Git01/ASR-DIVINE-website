@@ -28,7 +28,9 @@ export function CustomOrderPageClient() {
       )}
 
       {/* Form — centered when submitted */}
-      <div className={`relative mx-auto max-w-3xl px-6 lg:px-12 ${submitted ? 'flex min-h-[60vh] items-center justify-center py-20' : 'py-14 lg:py-20'}`}>
+      <div
+        className={`relative mx-auto max-w-3xl px-6 lg:px-12 ${submitted ? 'flex min-h-[60vh] items-center justify-center py-20' : 'py-14 lg:py-20'}`}
+      >
         <CustomOrderForm onSubmitted={() => setSubmitted(true)} />
       </div>
     </>

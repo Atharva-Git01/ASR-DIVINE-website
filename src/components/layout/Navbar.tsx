@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect, useRef, FormEvent } from 'react'
+import { useState, useEffect, useRef, type FormEvent } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useCartStore } from '@/stores/cart'
 
 const NAV_LINKS = [
   { href: '/shop', label: 'Shop' },
-  { href: '/shop?category=chocolates', label: 'Chocolates' },
+  { href: '/menu', label: 'Menu' },
   { href: '/custom-order', label: 'Custom Orders' },
   { href: '/about', label: 'Our Story' },
   { href: '/gallery', label: 'Gallery' },
@@ -51,7 +51,9 @@ export function Navbar({ logoSrc }: NavbarProps) {
   }
 
   const isSolid = scrolled || !isHome
-  const textColor = isSolid ? 'text-brand-cream/80 hover:text-white' : 'text-white hover:text-white/80'
+  const textColor = isSolid
+    ? 'text-brand-cream/80 hover:text-white'
+    : 'text-white hover:text-white/80'
   const iconClass = `btn-icon ${isSolid ? 'text-brand-cream/80 hover:text-white hover:bg-white/10' : 'text-white hover:text-white/80 hover:bg-white/10'}`
 
   return (
@@ -75,22 +77,23 @@ export function Navbar({ logoSrc }: NavbarProps) {
               priority
             />
           ) : (
-            <span className={`font-display text-xl italic tracking-[0.06em] ${isSolid ? 'text-brand-cream' : 'text-white'}`}>
+            <span
+              className={`font-display text-xl italic tracking-[0.06em] ${isSolid ? 'text-brand-cream' : 'text-white'}`}
+            >
               ASR Divine
             </span>
           )}
         </Link>
 
         {/* Search bar — fills the blank space */}
-        <form
-          onSubmit={handleSearch}
-          className="flex-1 mx-4 outline-none"
-        >
-          <div className={`flex items-center gap-2 rounded-full px-4 py-2 outline-none transition-all duration-300 ${
-            isSolid
-              ? 'bg-white/10 border border-white/10 focus-within:bg-white/15'
-              : 'bg-white/10 border border-white/15 focus-within:bg-white/15'
-          }`}>
+        <form onSubmit={handleSearch} className="flex-1 mx-4 outline-none">
+          <div
+            className={`flex items-center gap-2 rounded-full px-4 py-2 outline-none transition-all duration-300 ${
+              isSolid
+                ? 'bg-white/10 border border-white/10 focus-within:bg-white/15'
+                : 'bg-white/10 border border-white/15 focus-within:bg-white/15'
+            }`}
+          >
             <SearchIcon className={isSolid ? 'text-brand-cream/60' : 'text-white/60'} />
             <input
               ref={searchRef}
@@ -116,7 +119,10 @@ export function Navbar({ logoSrc }: NavbarProps) {
         <ul className="hidden lg:flex gap-6 items-center list-none flex-shrink-0">
           {NAV_LINKS.map(({ href, label }) => (
             <li key={href}>
-              <Link href={href} className={`text-sm tracking-[0.03em] transition-colors duration-200 ${textColor}`}>
+              <Link
+                href={href}
+                className={`text-sm tracking-[0.03em] transition-colors duration-200 ${textColor}`}
+              >
                 {label}
               </Link>
             </li>
@@ -165,11 +171,13 @@ export function Navbar({ logoSrc }: NavbarProps) {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className={`border-t lg:hidden ${
-          isSolid
-            ? 'border-brand-gold/10 bg-brand-brown-deep'
-            : 'border-white/15 bg-black/60 backdrop-blur-md'
-        }`}>
+        <div
+          className={`border-t lg:hidden ${
+            isSolid
+              ? 'border-brand-gold/10 bg-brand-brown-deep'
+              : 'border-white/15 bg-black/60 backdrop-blur-md'
+          }`}
+        >
           <ul className="flex flex-col px-6 py-4 gap-1 list-none">
             {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
@@ -197,7 +205,18 @@ export function Navbar({ logoSrc }: NavbarProps) {
 
 function SearchIcon({ className = '' }: { className?: string }) {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={className}>
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.35-4.35" />
     </svg>
@@ -206,7 +225,17 @@ function SearchIcon({ className = '' }: { className?: string }) {
 
 function HeartIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
     </svg>
   )
@@ -214,7 +243,16 @@ function HeartIcon() {
 
 function MenuIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <line x1="3" y1="6" x2="21" y2="6" />
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="18" x2="21" y2="18" />
@@ -224,7 +262,16 @@ function MenuIcon() {
 
 function CloseIcon({ size = 18 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>

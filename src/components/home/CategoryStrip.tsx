@@ -19,14 +19,13 @@ const CATEGORY_GRADIENTS: Record<number, string> = {
   5: 'from-[#E8CDB5] to-[#C8973A]',
 }
 
-
 const FALLBACK_CATEGORIES: Category[] = [
   { id: '1', name: 'Chocolates', slug: 'chocolates' },
   { id: '2', name: 'Celebration Cakes', slug: 'cakes' },
   { id: '3', name: 'Cookies & Bars', slug: 'cookies' },
-  { id: '4', name: 'Gift Hampers', slug: 'gifting' },
-  { id: '5', name: 'Seasonal', slug: 'seasonal' },
-  { id: '6', name: 'Custom Orders', slug: 'custom' },
+  { id: '4', name: 'Breads', slug: 'breads' },
+  { id: '5', name: 'Tarts & Pies', slug: 'tarts-pies' },
+  { id: '6', name: 'Puffs & Croissants', slug: 'puffs-croissants' },
 ]
 
 export async function CategoryStrip() {
@@ -51,7 +50,8 @@ export async function CategoryStrip() {
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {display.map((cat, i) => {
-            const href = `/shop?category=${cat.slug}`
+            const href =
+              data && data.length > 0 ? `/shop?category=${cat.slug}` : `/menu#${cat.slug}`
             const gradient = CATEGORY_GRADIENTS[i % 6] ?? CATEGORY_GRADIENTS[0]
             const imgSrc = resolvePublicImage('categories', cat.slug)
 
