@@ -3,6 +3,7 @@
 import { forwardRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+// Image import kept for hero banner above
 import { MENU_CATEGORIES, MENU_NAV, type MenuCategory } from '@/data/menu'
 
 const TAG_STYLES: Record<string, string> = {
@@ -222,20 +223,10 @@ const CategorySection = forwardRef<HTMLElement, { cat: MenuCategory }>(function 
 
   return (
     <section id={cat.id} ref={ref} className="scroll-mt-40">
-      {/* Header image */}
-      <div className="relative overflow-hidden rounded-2xl mb-6 h-44 flex items-end">
-        <Image
-          src={cat.image}
-          alt={cat.name}
-          fill
-          className="object-cover object-center"
-          sizes="(max-width: 768px) 100vw, 1200px"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
-        <div className="relative px-6 pb-6">
-          <h2 className="font-display text-display-sm text-white italic">{cat.name}</h2>
-          <p className="text-white/65 text-xs mt-1 max-w-lg">{cat.description}</p>
-        </div>
+      {/* Category heading */}
+      <div className="mb-5 pb-3 border-b" style={{ borderColor: 'rgba(44,26,14,0.12)' }}>
+        <h2 className="font-display text-display-sm text-brand-brown-deep italic">{cat.name}</h2>
+        <p className="text-brand-text-secondary text-xs mt-1">{cat.description}</p>
       </div>
 
       {/* Flat items */}
