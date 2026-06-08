@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { forwardRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MENU_CATEGORIES, MENU_NAV, type MenuCategory } from '@/data/menu'
@@ -21,65 +21,54 @@ const TAG_LABELS: Record<string, string> = {
   signature: '★ Signature',
 }
 
+const TOTAL_ITEMS = MENU_CATEGORIES.reduce(
+  (acc, c) =>
+    acc + (c.items?.length ?? 0) + (c.subSections?.reduce((a, s) => a + s.items.length, 0) ?? 0),
+  0
+)
+
 export function MenuClient() {
-  const [activeId, setActiveId] = useState(MENU_CATEGORIES[0]?.id ?? '')
+  const [activeFilter, setActiveFilter] = useState<string>('all')
   const [query, setQuery] = useState('')
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
 
-  // Scrollspy — highlight active category on scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
-          }
-        }
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
-    )
-    Object.values(sectionRefs.current).forEach((el) => el && observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+  // Which categories to show based on the active filter pill
+  const visibleCategories =
+    activeFilter === 'all' ? MENU_CATEGORIES : MENU_CATEGORIES.filter((c) => c.id === activeFilter)
 
-  function scrollTo(id: string) {
-    const el = document.getElementById(id)
-    if (el) {
-      const offset = 80
-      const y = el.getBoundingClientRect().top + window.scrollY - offset
-      window.scrollTo({ top: y, behavior: 'smooth' })
-    }
-    setActiveId(id)
-  }
-
-  // Filter by search query
-  const filtered = query.trim()
-    ? MENU_CATEGORIES.map((cat) => {
-        const q = query.toLowerCase()
-
-        const filteredItems = (cat.items ?? []).filter((item) =>
-          item.name.toLowerCase().includes(q)
+  // Further narrow by search query
+  const displayed = query.trim()
+    ? visibleCategories
+        .map((cat) => {
+          const q = query.toLowerCase()
+          const filteredItems = (cat.items ?? []).filter((item) =>
+            item.name.toLowerCase().includes(q)
+          )
+          const filteredSubs = (cat.subSections ?? [])
+            .map((sub) => ({
+              ...sub,
+              items: sub.items.filter((item) => item.name.toLowerCase().includes(q)),
+            }))
+            .filter((sub) => sub.items.length > 0)
+          return { ...cat, items: filteredItems, subSections: filteredSubs }
+        })
+        .filter(
+          (cat) =>
+            (cat.items?.length ?? 0) +
+              (cat.subSections?.reduce((a, s) => a + s.items.length, 0) ?? 0) >
+            0
         )
+    : visibleCategories
 
-        const filteredSubs = (cat.subSections ?? [])
-          .map((sub) => ({
-            ...sub,
-            items: sub.items.filter((item) => item.name.toLowerCase().includes(q)),
-          }))
-          .filter((sub) => sub.items.length > 0)
-
-        return { ...cat, items: filteredItems, subSections: filteredSubs }
-      }).filter(
-        (cat) =>
-          (cat.items?.length ?? 0) +
-            (cat.subSections?.reduce((a, s) => a + s.items.length, 0) ?? 0) >
-          0
-      )
-    : MENU_CATEGORIES
+  function handleFilterClick(id: string) {
+    setActiveFilter(id)
+    setQuery('') // clear search when switching category
+    // scroll to top of content area
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <div className="bg-brand-cream min-h-screen">
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <div className="relative overflow-hidden bg-brand-brown-deep -mt-[72px] min-h-[360px] flex items-end">
         <Image
           src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=1600&q=80"
@@ -96,20 +85,20 @@ export function MenuClient() {
             The ASR Divine Menu
           </h1>
           <p className="mt-3 text-brand-cream/70 max-w-xl text-sm leading-relaxed">
-            14 categories, hundreds of handcrafted creations — from artisan breads to luxury
-            chocolates. Everything made in-house with rare cacao and finest ingredients.
+            {MENU_CATEGORIES.length} categories · {TOTAL_ITEMS}+ handcrafted creations — from
+            artisan breads to luxury chocolates.
           </p>
         </div>
       </div>
 
-      {/* ── Sticky category nav + search ────────────────────────────────── */}
+      {/* ── Sticky filter bar ────────────────────────────────────────────── */}
       <div
         className="sticky top-[72px] z-30 bg-brand-white/95 backdrop-blur-sm border-b shadow-sm"
         style={{ borderColor: 'rgba(44,26,14,0.10)' }}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          {/* Search */}
-          <div className="py-3 flex items-center gap-3">
+          {/* Search + count row */}
+          <div className="pt-3 pb-2 flex items-center gap-3">
             <div className="relative flex-1 max-w-sm">
               <svg
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-text-secondary w-4 h-4"
@@ -125,7 +114,11 @@ export function MenuClient() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search menu items..."
+                placeholder={
+                  activeFilter === 'all'
+                    ? 'Search all menu items…'
+                    : `Search in ${MENU_NAV.find((n) => n.id === activeFilter)?.name ?? ''}…`
+                }
                 className="w-full pl-9 pr-4 py-2 text-sm rounded-full border bg-brand-cream/60 focus:outline-none focus:border-brand-brown-deep/40 placeholder:text-brand-text-secondary/50"
                 style={{ borderColor: 'rgba(44,26,14,0.15)' }}
               />
@@ -146,28 +139,34 @@ export function MenuClient() {
                 </button>
               )}
             </div>
-            <span className="text-xs text-brand-text-secondary hidden sm:block">
-              {MENU_CATEGORIES.reduce(
-                (acc, c) =>
-                  acc +
-                  (c.items?.length ?? 0) +
-                  (c.subSections?.reduce((a, s) => a + s.items.length, 0) ?? 0),
-                0
-              )}{' '}
-              items across {MENU_CATEGORIES.length} categories
+
+            <span className="text-xs text-brand-text-secondary hidden sm:block shrink-0">
+              {TOTAL_ITEMS}+ items · {MENU_CATEGORIES.length} categories
             </span>
           </div>
 
-          {/* Category tabs — horizontal scroll */}
-          <div className="flex gap-1 overflow-x-auto pb-2 scrollbar-none -mx-1 px-1">
+          {/* Category filter pills */}
+          <div className="flex gap-1.5 overflow-x-auto pb-3 scrollbar-none -mx-1 px-1">
+            {/* ALL pill */}
+            <button
+              onClick={() => handleFilterClick('all')}
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all whitespace-nowrap border ${
+                activeFilter === 'all'
+                  ? 'bg-brand-brown-deep text-brand-cream border-brand-brown-deep shadow-sm'
+                  : 'text-brand-text-secondary border-transparent hover:text-brand-brown-deep hover:bg-brand-brown-deep/8'
+              }`}
+            >
+              All
+            </button>
+
             {MENU_NAV.map(({ id, name }) => (
               <button
                 key={id}
-                onClick={() => scrollTo(id)}
-                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs tracking-wide transition-all whitespace-nowrap ${
-                  activeId === id
-                    ? 'bg-brand-brown-deep text-brand-cream'
-                    : 'text-brand-text-secondary hover:text-brand-brown-deep hover:bg-brand-cream'
+                onClick={() => handleFilterClick(id)}
+                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all whitespace-nowrap border ${
+                  activeFilter === id
+                    ? 'bg-brand-brown-deep text-brand-cream border-brand-brown-deep shadow-sm'
+                    : 'text-brand-text-secondary border-transparent hover:text-brand-brown-deep hover:bg-brand-brown-deep/8'
                 }`}
               >
                 {name}
@@ -179,17 +178,11 @@ export function MenuClient() {
 
       {/* ── Category sections ────────────────────────────────────────────── */}
       <div className="mx-auto max-w-7xl px-6 lg:px-12 py-10 space-y-16">
-        {filtered.map((cat) => (
-          <CategorySection
-            key={cat.id}
-            cat={cat}
-            ref={(el) => {
-              sectionRefs.current[cat.id] = el
-            }}
-          />
+        {displayed.map((cat) => (
+          <CategorySection key={cat.id} cat={cat} />
         ))}
 
-        {filtered.length === 0 && (
+        {displayed.length === 0 && (
           <div className="text-center py-24">
             <p className="text-brand-text-secondary text-sm">
               No items found for &quot;{query}&quot;
@@ -220,8 +213,6 @@ export function MenuClient() {
 
 // ── Category section ──────────────────────────────────────────────────────────
 
-import { forwardRef } from 'react'
-
 const CategorySection = forwardRef<HTMLElement, { cat: MenuCategory }>(function CategorySection(
   { cat },
   ref
@@ -231,7 +222,7 @@ const CategorySection = forwardRef<HTMLElement, { cat: MenuCategory }>(function 
 
   return (
     <section id={cat.id} ref={ref} className="scroll-mt-40">
-      {/* Section header */}
+      {/* Header image */}
       <div className="relative overflow-hidden rounded-2xl mb-6 h-44 flex items-end">
         <Image
           src={cat.image}
@@ -247,12 +238,16 @@ const CategorySection = forwardRef<HTMLElement, { cat: MenuCategory }>(function 
         </div>
       </div>
 
-      {/* Items */}
+      {/* Flat items */}
       {allItems.length > 0 && <ItemGrid items={allItems} />}
 
+      {/* Sub-sections */}
       {subs.map((sub) => (
-        <div key={sub.title} className="mt-6">
-          <h3 className="text-xs font-semibold tracking-widest text-brand-text-secondary uppercase mb-3">
+        <div key={sub.title} className="mt-8">
+          <h3
+            className="text-xs font-semibold tracking-widest text-brand-text-secondary uppercase mb-3 pb-2 border-b"
+            style={{ borderColor: 'rgba(44,26,14,0.10)' }}
+          >
             {sub.title}
           </h3>
           <ItemGrid items={sub.items} />
@@ -281,7 +276,9 @@ function ItemGrid({ items }: { items: { name: string; tags?: string[] }[] }) {
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`inline-flex items-center text-[9px] font-medium px-1.5 py-0.5 rounded border ${TAG_STYLES[tag] ?? 'bg-gray-800/40 text-gray-300 border-gray-600/40'}`}
+                  className={`inline-flex items-center text-[9px] font-medium px-1.5 py-0.5 rounded border ${
+                    TAG_STYLES[tag] ?? 'bg-gray-800/40 text-gray-300 border-gray-600/40'
+                  }`}
                 >
                   {TAG_LABELS[tag] ?? tag}
                 </span>
