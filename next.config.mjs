@@ -2,6 +2,14 @@ import { withSentryConfig } from '@sentry/nextjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack(config, { nextRuntime }) {
+    // Edge runtime sandbox disallows eval(); disable eval-based source maps
+    // for the middleware/edge build to prevent EvalError on every request.
+    if (nextRuntime === 'edge') {
+      config.devtool = false
+    }
+    return config
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '*.supabase.co' },

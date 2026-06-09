@@ -25,10 +25,15 @@ export function Navbar({ logoSrc }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [mounted, setMounted] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
   const itemCount = useCartStore((s) => s.itemCount())
   const openCart = useCartStore((s) => s.openCart)
   const router = useRouter()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -151,7 +156,7 @@ export function Navbar({ logoSrc }: NavbarProps) {
             }`}
           >
             Cart
-            {itemCount > 0 && (
+            {mounted && itemCount > 0 && (
               <span className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-brand-gold text-[9px] font-medium text-brand-choc">
                 {itemCount > 9 ? '9+' : itemCount}
               </span>
