@@ -43,7 +43,7 @@ export async function CategoryStrip() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-10 text-center">
           <p className="eyebrow mb-3">Browse by Category</p>
-          <h2 className="font-display text-display-md text-brand-brown-deep italic">
+          <h2 className="font-display text-display-sm sm:text-display-md text-brand-brown-deep italic">
             Something for every craving
           </h2>
         </div>

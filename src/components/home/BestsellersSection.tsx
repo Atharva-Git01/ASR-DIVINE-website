@@ -22,7 +22,7 @@ export async function BestsellersSection() {
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="eyebrow mb-3">Fan Favourites</p>
-            <h2 className="font-display text-display-md text-brand-brown-deep italic">
+            <h2 className="font-display text-display-sm sm:text-display-md text-brand-brown-deep italic">
               Our bestsellers
             </h2>
           </div>

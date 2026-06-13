@@ -68,7 +68,7 @@ export function ProductGrid({ products, categories }: Props) {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setActiveCategory('all')}
-            className={`px-4 py-1.5 rounded-full text-xs tracking-wide transition-all ${
+            className={`px-4 py-2 rounded-full text-xs tracking-wide transition-all ${
               activeCategory === 'all'
                 ? 'bg-brand-brown-deep text-brand-cream'
                 : 'border text-brand-text-secondary hover:border-brand-brown-deep hover:text-brand-brown-deep'
@@ -81,7 +81,7 @@ export function ProductGrid({ products, categories }: Props) {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.slug)}
-              className={`px-4 py-1.5 rounded-full text-xs tracking-wide transition-all ${
+              className={`px-4 py-2 rounded-full text-xs tracking-wide transition-all ${
                 activeCategory === cat.slug
                   ? 'bg-brand-brown-deep text-brand-cream'
                   : 'border text-brand-text-secondary hover:border-brand-brown-deep hover:text-brand-brown-deep'
@@ -96,7 +96,7 @@ export function ProductGrid({ products, categories }: Props) {
         </div>
 
         {/* Right controls */}
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex flex-wrap items-center gap-2">
           {DIETARY_FILTERS.map(({ key, label }) => (
             <button
               key={key}

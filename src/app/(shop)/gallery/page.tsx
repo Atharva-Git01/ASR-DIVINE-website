@@ -64,7 +64,7 @@ export default function GalleryPage() {
       >
         <div className="mx-auto max-w-7xl px-6 text-center lg:px-12">
           <p className="eyebrow mb-4 justify-center">Lookbook</p>
-          <h1 className="font-display text-display-md text-brand-brown-deep italic">
+          <h1 className="font-display text-[1.75rem] sm:text-display-md text-brand-brown-deep italic">
             Made by hand, one piece at a time
           </h1>
           <p className="mt-4 text-base text-brand-text-secondary max-w-xl mx-auto">

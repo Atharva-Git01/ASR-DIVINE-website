@@ -32,7 +32,7 @@ export function AboutHero() {
         <p className="eyebrow mb-6 justify-center" style={{ color: 'var(--color-gold)' }}>
           Our Story
         </p>
-        <h1 className="font-display text-display-lg text-brand-cream italic leading-[1.06] tracking-[-0.01em]">
+        <h1 className="font-display text-[2rem] sm:text-display-md md:text-display-lg text-brand-cream italic leading-[1.06] tracking-[-0.01em]">
           Made with intention,
           <br />
           shared with love.

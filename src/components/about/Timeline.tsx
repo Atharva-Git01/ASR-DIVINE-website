@@ -27,7 +27,7 @@ export function Timeline() {
       <div className="mx-auto max-w-5xl px-6 lg:px-12">
         <div className="mb-14 text-center">
           <p className="eyebrow mb-4 justify-center">Milestones</p>
-          <h2 className="font-display text-display-md text-brand-brown-deep italic">
+          <h2 className="font-display text-display-sm sm:text-display-md text-brand-brown-deep italic">
             How we got here
           </h2>
         </div>

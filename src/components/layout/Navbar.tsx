@@ -90,10 +90,10 @@ export function Navbar({ logoSrc }: NavbarProps) {
           )}
         </Link>
 
-        {/* Search bar — fills the blank space */}
-        <form onSubmit={handleSearch} className="flex-1 mx-4 outline-none">
+        {/* Search bar — fills blank space on sm+ screens */}
+        <form onSubmit={handleSearch} className="hidden sm:flex flex-1 mx-4 outline-none">
           <div
-            className={`flex items-center gap-2 rounded-full px-4 py-2 outline-none transition-all duration-300 ${
+            className={`flex w-full items-center gap-2 rounded-full px-4 py-2 outline-none transition-all duration-300 ${
               isSolid
                 ? 'bg-white/10 border border-white/10 focus-within:bg-white/15'
                 : 'bg-white/10 border border-white/15 focus-within:bg-white/15'
@@ -135,7 +135,16 @@ export function Navbar({ logoSrc }: NavbarProps) {
         </ul>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0 ml-auto sm:ml-0">
+          {/* Mobile search icon — only visible on xs screens */}
+          <button
+            aria-label="Search"
+            onClick={() => setSearchOpen((v) => !v)}
+            className={`${iconClass} sm:hidden`}
+          >
+            {searchOpen ? <CloseIcon size={18} /> : <SearchIcon className="" />}
+          </button>
+
           {/* Wishlist */}
           <Link
             href="/account/wishlist"
@@ -147,7 +156,7 @@ export function Navbar({ logoSrc }: NavbarProps) {
 
           {/* Cart */}
           <button
-            aria-label={`Cart — ${itemCount} item${itemCount !== 1 ? 's' : ''}`}
+            aria-label={`Cart — ${mounted ? itemCount : 0} item${(mounted ? itemCount : 0) !== 1 ? 's' : ''}`}
             onClick={openCart}
             className={`relative flex items-center gap-2 rounded-pill px-4 py-2 text-xs font-body tracking-[0.04em] transition-colors ${
               isSolid
@@ -173,6 +182,46 @@ export function Navbar({ logoSrc }: NavbarProps) {
           </button>
         </div>
       </nav>
+
+      {/* Mobile search bar — drops below navbar on xs/sm screens */}
+      {searchOpen && (
+        <div
+          className={`sm:hidden border-t px-4 py-3 ${
+            isSolid
+              ? 'border-brand-gold/10 bg-brand-brown-deep'
+              : 'border-white/15 bg-black/70 backdrop-blur-md'
+          }`}
+        >
+          <form onSubmit={handleSearch} className="flex items-center gap-2">
+            <div
+              className={`flex flex-1 items-center gap-2 rounded-full px-4 py-2 ${
+                isSolid
+                  ? 'bg-white/10 border border-white/15 focus-within:bg-white/20'
+                  : 'bg-white/10 border border-white/20 focus-within:bg-white/15'
+              }`}
+            >
+              <SearchIcon className="text-white/50 flex-shrink-0" />
+              <input
+                ref={searchRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search chocolates, cakes…"
+                className="flex-1 bg-transparent text-sm outline-none focus:outline-none ring-0 focus:ring-0 placeholder:text-white/40 text-white min-w-0"
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  className="text-white/40 hover:text-white/80 flex-shrink-0"
+                >
+                  <CloseIcon size={14} />
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Mobile menu */}
       {mobileOpen && (

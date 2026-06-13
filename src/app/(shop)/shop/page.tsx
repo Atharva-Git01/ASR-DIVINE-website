@@ -29,7 +29,7 @@ export default async function ShopPage() {
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <p className="eyebrow mb-3">Full Menu</p>
-          <h1 className="font-display text-display-md text-brand-brown-deep italic">
+          <h1 className="font-display text-[1.75rem] sm:text-display-md text-brand-brown-deep italic">
             Everything we make
           </h1>
         </div>

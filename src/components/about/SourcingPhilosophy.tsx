@@ -27,7 +27,7 @@ export function SourcingPhilosophy() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-14 text-center">
           <p className="eyebrow mb-4 justify-center">How We Work</p>
-          <h2 className="font-display text-display-md text-brand-brown-deep italic">
+          <h2 className="font-display text-display-sm sm:text-display-md text-brand-brown-deep italic">
             Principles before profit
           </h2>
           <p className="mt-4 text-base text-brand-text-secondary max-w-xl mx-auto leading-relaxed">

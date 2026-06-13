@@ -16,7 +16,7 @@ export function CustomOrderPageClient() {
         >
           <div className="mx-auto max-w-7xl px-6 text-center lg:px-12">
             <p className="eyebrow mb-3 justify-center">Made for you</p>
-            <h1 className="font-display text-display-md italic text-brand-brown-deep">
+            <h1 className="font-display text-[1.75rem] sm:text-display-md italic text-brand-brown-deep">
               Custom Order Request
             </h1>
             <p className="mt-4 text-base max-w-lg mx-auto text-brand-text-secondary">

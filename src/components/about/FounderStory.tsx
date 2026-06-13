@@ -37,7 +37,7 @@ export function FounderStory() {
           {/* Copy */}
           <div className="order-1 lg:order-2">
             <p className="eyebrow mb-6">The Beginning</p>
-            <h2 className="font-display text-display-md text-brand-brown-deep italic leading-[1.1]">
+            <h2 className="font-display text-display-sm sm:text-display-md text-brand-brown-deep italic leading-[1.1]">
               A kitchen, a dream,
               <br />
               and a passion for perfection.

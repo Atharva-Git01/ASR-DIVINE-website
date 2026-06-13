@@ -40,5 +40,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+  // Only run middleware on paths that actually need auth or session refresh.
+  // Restricting to these prefixes avoids compiling the middleware bundle on
+  // every request (which triggered EvalError in dev mode with eval-source-map).
+  matcher: [
+    '/account/:path*',
+    '/checkout/:path*',
+    '/admin/:path*',
+    // Keep session refresh for API routes that may need auth state
+    '/api/:path*',
+  ],
 }

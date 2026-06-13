@@ -55,7 +55,7 @@ export function Footer({ logoSrc }: FooterProps) {
                   alt="ASR Divine"
                   width={280}
                   height={180}
-                  className="w-[280px] h-auto rounded-lg"
+                  className="w-full max-w-[200px] sm:max-w-[280px] h-auto rounded-lg"
                 />
               ) : (
                 <span className="font-display text-xl italic text-brand-cream tracking-[0.06em]">

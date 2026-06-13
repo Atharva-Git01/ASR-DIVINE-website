@@ -37,7 +37,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08 }}
-            className="font-display text-display-lg text-white leading-[1.05] tracking-[-0.01em]"
+            className="font-display text-[2rem] sm:text-display-md md:text-display-lg text-white leading-[1.05] tracking-[-0.01em]"
           >
             Crafted with
             <br />
@@ -50,7 +50,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18 }}
-            className="mt-6 max-w-md text-base text-white/75 leading-relaxed"
+            className="mt-6 max-w-[280px] sm:max-w-md text-sm sm:text-base text-white/75 leading-relaxed"
           >
             Small-batch bean-to-bar chocolates, celebration cakes, and gifting hampers — each piece
             made by hand in our Pune studio.
